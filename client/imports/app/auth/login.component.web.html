@@ -1,0 +1,55 @@
+<ion-header class="sign_in_head">
+  <ion-navbar>
+    <div class="top_title">
+      SIGN IN
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+  <div class="signin_content">
+    <div class="upper_con">
+      <div class="logo1_dv">
+        <img alt="" src="../assets/img/logo.png">
+      </div>
+
+      <form class="" [formGroup]="loginForm" (ngSubmit)="login()">
+      <div class="login_sec">
+        <ion-list>
+          <ion-item>
+            <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+          </ion-item>
+          <div *ngIf="loginForm.controls['email'].errors && loginForm.controls['email'].touched" class="error">
+            <div [hidden]="!loginForm.controls['email'].errors.required" class="error">Email is required.</div>
+            <div [hidden]="!loginForm.controls['email'].errors.pattern" class="error">Invalid email address.</div>
+          </div>
+
+          <ion-item>
+            <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+          </ion-item>
+          <div *ngIf="loginForm.controls['password'].errors && loginForm.controls['password'].touched" class="error">
+            <div [hidden]="!loginForm.controls['password'].errors.required" class="error">Password is required.</div>
+          </div>
+          <br />
+        </ion-list>
+
+        <div [hidden]="error == ''">
+          <p class="md-warn" layout="row" layout-fill layout-padding layout-margin>
+            <p class="md-body-1">{{ error }}</p>
+          </p>
+        </div>
+      </div>
+
+      <div class="sign_in_btn">
+        <button ion-button block [disabled]="!loginForm.valid">Sign In</button>
+      </div>
+      </form>
+
+      <span class="forgot_pass"><a [navPush]="recover">Forgot password?</a></span>
+    </div>
+    <div class="sign_up_btm">
+      <p>Don’t have an account? <a [navPush]="signup">SIGNUP</a></p>
+    </div>
+  </div>
+
+</ion-content>

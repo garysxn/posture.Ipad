@@ -1,0 +1,18 @@
+.main_con{background-image:url(../assets/img/background.png);background-size:cover;height:100%;text-align:center;padding:100px 15px 15px;}
+.main_con p{color:#fff;font-size:25px;}
+.sign_up{background:#e54524;height:100%;}
+.bottom_sec{margin-top:50px;}
+.bottom_sec button {margin-bottom: 20px;height:40px;border-radius:3px;}
+.bottom_sec .sign_up.button-md:hover:not(.disable-hover){background:#e54524;}
+
+/*--------media queries--------*/
+@media(max-width:500px)
+{
+	.logo_dv{width:160px;margin:auto;}
+	.main_con p{font-size:20px;}
+}
+
+@media(max-width:359px)
+{
+    .main_con{height:auto;}
+}

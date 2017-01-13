@@ -1,0 +1,99 @@
+<ion-header class="profile_main_head">
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <div class="top_title">
+      Patients
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+
+    <div class="signup_content">
+    	<form class="col s12" [formGroup]="patientForm" (ngSubmit)="addPatient()">
+        <div class="login_sec">
+			<ion-row>
+				<ion-col width-50>
+					<ion-list>
+				  
+						<ion-item>
+							<ion-input formControlName="lastName" type="text" placeholder="LastName"></ion-input>
+						</ion-item>
+				  
+						<ion-item>
+							<ion-input formControlName="firstName" type="text" placeholder="FirstName"></ion-input>
+						</ion-item>
+						
+						
+							<ion-list radio-group formControlName="gender">
+								<ion-item >
+									<ion-label>Female</ion-label>
+									<ion-radio  value="0" ngDefaultControl></ion-radio>
+								</ion-item>
+								<ion-item>
+									<ion-label>Male</ion-label>
+									<ion-radio  value="1" ngDefaultControl></ion-radio>
+								</ion-item>
+							</ion-list>
+						
+					  
+						<ion-item width-50>
+							<ion-input formControlName="height" type="number" placeholder="Height(cm)"></ion-input>
+						</ion-item>
+						
+						<ion-item width-50>
+							<ion-input formControlName="weight" type="number" placeholder="Weight(kg)"></ion-input>
+						</ion-item>
+						
+						<ion-item>
+							<ion-input formControlName="dob" type="date" placeholder="Date of birth (dd/mm/yyyy)"></ion-input>
+						</ion-item>
+				  
+					</ion-list>
+				</ion-col>
+				<ion-col width-50>
+					<ion-list>
+						
+						<ion-item>
+							<ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
+						</ion-item>
+				  
+						<ion-item>
+							<ion-input formControlName="phonenumber" type="tel" placeholder="Phone number"></ion-input>
+						</ion-item>
+				  
+						<ion-item>
+							<ion-input formControlName="address" type="text" placeholder="Address Line1"></ion-input>
+						</ion-item>
+						
+						<ion-item width-50>
+							<ion-input formControlName="pincode" type="text" placeholder="Pincode"></ion-input>
+						</ion-item>
+						
+						<ion-item width-50>
+							<ion-input formControlName="city" type="text" placeholder="City"></ion-input>
+						</ion-item>
+						
+						<ion-item>
+							<ion-input formControlName="occupation" type="text" placeholder="Occupation"></ion-input>
+						</ion-item>
+				  
+					</ion-list>
+				</ion-col>
+			</ion-row>
+        </div>
+         <div class="sign_in_btn">
+		 	 <button ion-button block [disabled]="!patientForm.valid">SUBMIT</button>
+		</div>
+        </form>
+       
+
+        <div [hidden]="error == ''">
+            <p class="md-warn" layout="row" layout-fill layout-padding layout-margin>
+            <p class="md-body-1">{{ error }}</p>
+            </p>
+        </div>
+    </div>
+</ion-content>

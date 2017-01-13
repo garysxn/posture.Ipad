@@ -1,0 +1,45 @@
+<ion-header class="sign_in_head">
+  <ion-navbar>
+    <div class="top_title">
+      Recover Your Password
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+  <div class="signin_content">
+    <div class="upper_con">
+      <div class="logo1_dv">
+        <img alt="" src="../assets/img/logo.png">
+      </div>
+
+      <form class="col s12" [formGroup]="recoverForm" #f="ngForm" (ngSubmit)="recover()">
+      <div class="login_sec">
+        <ion-list>
+          <ion-item>
+            <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+          </ion-item>
+          <div *ngIf="recoverForm.controls['email'].errors && recoverForm.controls['email'].touched" class="error">
+                <div [hidden]="!recoverForm.controls['email'].errors.required">Email is required.</div>
+                <div [hidden]="!recoverForm.controls['email'].errors.pattern">Invalid email address.</div>
+            </div>
+            <br />
+        </ion-list>
+
+        <div [hidden]="error == ''">
+          <p class="md-warn" layout="row" layout-fill layout-padding layout-margin>
+            <p class="md-body-1">{{ error }}</p>
+          </p>
+        </div>
+      </div>
+
+      <div class="sign_in_btn">
+        <button ion-button block [disabled]="!recoverForm.valid">Sign In</button>
+      </div>
+      </form>
+
+      <span class="forgot_pass"><a [navPush]="login">Login</a></span>
+    </div>
+  </div>
+
+</ion-content>

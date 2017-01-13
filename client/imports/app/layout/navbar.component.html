@@ -1,0 +1,27 @@
+<ul id="nav-mobile" class="side-nav left-bar fixed">
+    <li class="admin-pro">
+    <img src="images/admin.png" alt=""/>
+    <h2>{{user.profile.firstName}} {{user.profile.lastName}}</h2>
+    </li>
+    <ul class="collapsible collapsible-accordion">
+        <li class="bold"><a href="javascript:void(0);" class="collapsible-header waves-effect waves-tea" [navPush]="dashboard"><i class="zmdi zmdi-view-dashboard"></i> Dashboard</a></li>
+        <li class="bold"><a href="javascript:void(0);" class="collapsible-header  waves-effect"><i class="zmdi zmdi-plus-square"></i> Message<span><i class="zmdi zmdi-chevron-right"></i></span></a>
+        <section class="collapsible-body">
+            <ul>
+                <li><a href="javascript:void(0);" >Inbox</a></li>
+                <li><a href="javascript:void(0);" >Compose</a></li>
+                <li><a href="javascript:void(0);" >Send Items</a></li>
+            </ul>
+        </section>
+        </li>
+        <li class="bold"><a href="javascript:void(0);"class="collapsible-header  waves-effect"><i class="zmdi zmdi-book-image"></i> Knowledge Base</a></li>
+        <li class="bold"><a href="javascript:void(0);" class="collapsible-header  waves-effect"><i class="zmdi zmdi-rss"></i> Inbox</a></li>
+        <li class="bold"><a href="javascript:void(0);" class="collapsible-header  waves-effect"><i class="zmdi zmdi-chart"></i> Questionnaire</a></li>
+        <li class="bold"><a href="javascript:void(0);" class="collapsible-header  waves-effect" [navPush]="agreements"><i class="zmdi zmdi-laptop"></i> Agreements</a></li>
+        <li class="bold"><a href="javascript:void(0);" class="collapsible-header  waves-effect" [navPush]="profile"><i class="zmdi zmdi-account"></i> My Account</a></li>
+    </ul>
+    
+    <li class="bold"><a href="javascript:void(0);" class="waves-effect" [hidden]="!user" (click)="logout()">
+        <i class="zmdi zmdi-lock"></i> Logout</a>
+    </li>
+</ul>

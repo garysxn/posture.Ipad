@@ -1,0 +1,33 @@
+.top_title{text-align:center;color:#fff;}
+.sign_in_head .toolbar-background{background:#4286f7;color:#fff;font-size:18px;}
+/*.sign_in_head{position:relative;}*/
+.sign_in_head button.right_arrow {background: rgba(0, 0, 0, 0) none repeat scroll 0 0; color: #ffffff; font-size: 20px;left: 10px;position: absolute;}
+.signup_content{height:100%;padding:40px 42px 20px;position:relative;text-align:center;background:#ebebea;}
+.login_sec ion-list ion-item{margin-bottom:5px;border-radius:5px;box-shadow:0 1px 1px 0 rgba(0, 0, 0, 0.1), 0 2px 1px -2px rgba(0, 0, 0, 0.1), 0 1px 5px 0 rgba(0, 0, 0, 0.12);}
+.login_sec { margin-top: 30px;}
+.sign_in_btn button{height:40px;}
+.forgot_pass {display: block;padding: 10px;text-align: center;font-size:16px;color:#8c8c8c;}
+.forgot_pass a,.sign_up_dv a{text-decoration:none;color:#4286f7;}
+.forgot_pass a:hover,.sign_up_dv a:hover{opacity:1;}
+.sign_up_dv p {color: #8c8c8c;background:#ebebea;text-align:center;}
+/*.sign_up_dv {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  text-align: center;
+}*/
+.logo1_dv {margin: auto; width: 100px;}
+.signup_btm {padding-top: 20px;}
+.signup_btm p{color:#8c8c8c;}
+.signup_btm p a{text-decoration:none;}
+
+@media(max-width:768px)
+{
+	.logo_dv{text-align:center;}
+}
+
+@media(max-width:360px)
+{
+.signup_content{height:auto;}
+}

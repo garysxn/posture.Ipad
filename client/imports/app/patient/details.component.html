@@ -1,0 +1,50 @@
+<ion-header class="profile_main_head">
+  <ion-navbar>
+    <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <div class="top_title">
+      Patients
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+   	<div class="main_pro_content">
+
+		<ion-card class="first_main_con">
+			<ion-card-content>
+           		<ion-grid>
+					<button ion-fab mini [navPush]="addPatient"><ion-icon name="add-circle"></ion-icon></button>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>	
+    	<ion-card class="first_main_con" *ngFor='let patientList of patient'>
+          <ion-card-content>
+           		<ion-grid>
+                  <ion-row >
+                    	<div class="profile_pic">
+                        	<img src="/assets/img/profile_pic.png" alt=""/>
+                        </div>
+                    	<div class="mid_con">
+                        	<h2>{{patientList.firstName}} {{patientList.lastName}}</h2>
+							<p><img src="/assets/img/img4.png" alt=""/>{{patientList.email}}</p>
+							<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender}}</p>                            
+                            <p><ion-icon name="call"></ion-icon>{{patientList.phonenumber}}</p>
+                            <p><ion-icon name="stopwatch"></ion-icon>{{patientList.dob}}</p>
+							
+							
+                        </div>
+                    	<div class="button_s">
+                            <ion-fab right edge>
+                                <button ion-fab mini class="edit"><ion-icon name="create"></ion-icon></button>
+                                 <button ion-fab mini class="lock"><ion-icon name="unlock"></ion-icon></button>
+                            </ion-fab>
+                        </div>
+                  </ion-row>
+				</ion-grid>
+          </ion-card-content>
+    </ion-card>
+    
+    </div>
+</ion-content>

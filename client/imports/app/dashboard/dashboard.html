@@ -1,0 +1,79 @@
+<ion-header class="dashboard_head header-dash">
+  <ion-navbar>
+   <button ion-button icon-only menuToggle>
+      <ion-icon name="menu"></ion-icon> 
+    </button>
+    <div class="top_title">
+      DASHBOARD
+    </div>
+    <div class="left_icon">
+    	 <img src="/assets/img/bell1.png" alt=""/>
+         <img src="/assets/img/mail1.png" alt=""/>
+    </div>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+ 	<div class="dashboard_content">
+    	<ion-grid>
+          <ion-row>
+            <ion-col width-50>
+            	<ion-card>
+                      <ion-card-content>
+                        <img src="/assets/img/letter1.png" alt=""/>
+                        <span>Message</span>
+                      </ion-card-content>
+				</ion-card>
+            </ion-col>
+            <ion-col width-50 [navPush]="patientDetails">
+            	<ion-card>
+                      <ion-card-content>
+                        <img src="/assets/img/knowledge1.png" alt=""/>
+                        <span>Patient</span>
+                      </ion-card-content>
+				</ion-card>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col width-50 [navPush]="analysis">
+            	<ion-card>
+                      <ion-card-content>
+                     <img src="/assets/img/question1.png" alt=""/>
+                        <span>Analysis</span>
+                      </ion-card-content>
+				</ion-card>
+            </ion-col>
+            <ion-col width-50>
+            	<ion-card>
+                      <ion-card-content>
+                        <img src="/assets/img/lab1.png" alt=""/>
+                        <span>Reports</span>
+                      </ion-card-content>
+				</ion-card>
+            </ion-col>
+          </ion-row>
+          
+          <ion-row>
+            <ion-col width-50 >
+            	<ion-card>
+                      <ion-card-content>
+                        <img src="/assets/img/agreement1.png" alt=""/>
+                        <span>Search</span>
+                      </ion-card-content>
+				</ion-card>
+            </ion-col>
+            <ion-col width-50 [navPush]="profile">
+            	<ion-card>
+                      <ion-card-content>
+                        <img src="/assets/img/user1.png" alt=""/>
+                        <span>My Account</span>
+                      </ion-card-content>
+				</ion-card>
+            </ion-col>
+          </ion-row>
+          
+		</ion-grid>
+    </div>
+   
+</ion-content>

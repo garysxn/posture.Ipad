@@ -1,0 +1,15 @@
+body.mobile {
+  overflow: hidden;
+}
+ 
+body.web {
+  overflow: visible;
+  position: initial;
+}
+
+.header-dash{background:#4286f7;}
+.top_head{padding:20px;width:120px;float:left;}
+.top_contents{float:left;color:#fff;}
+.top_contents h2 {padding-top: 15px;margin-bottom:0px;}
+.top_contents p {margin-top: 0;}
+.btm_links ion-list button div.item-inner,.btm_links ion-list button{border:none !important;}

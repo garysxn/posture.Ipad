@@ -1,0 +1,11 @@
+<header-main *ngIf="!!user"></header-main>
+<header-min *ngIf="!user"></header-min>
+
+<main>
+  <section class="row">
+    <section class="col s12 m12 l11 col s12 m12 l11 maindiv">
+        <section class="clearfix"></section>
+        <router-outlet></router-outlet>    
+    </section>
+  </section>
+</main>

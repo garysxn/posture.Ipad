@@ -1,0 +1,24 @@
+<ion-menu [content]="content" *ngIf="user">
+
+  <ion-header class="header-dash">
+	<div class="top_head">
+    	<img src="/assets/img/dashboard_pic.png" alt=""/>
+    </div>
+    <div class="top_contents">
+    	<h2>{{user.profile.firstName}} {{user.profile.lastName}}</h2>
+    	<p>{{user.emails[0].address}}</p>
+    </div>
+  </ion-header>
+
+  <ion-content class="btm_links">
+    <ion-list>
+      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+        {{p.title}}
+      </button>
+      <button ion-item (click)="logout()">Logout</button>
+    </ion-list>
+  </ion-content>
+
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false"></ion-nav>
