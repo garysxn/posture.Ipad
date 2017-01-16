@@ -24,14 +24,15 @@
            		<ion-grid>
                   <ion-row >
                     	<div class="profile_pic">
-                        	<img src="/assets/img/profile_pic.png" alt=""/>
+                        	<!--<img src="/images/no-image-male.jpg" alt=""/>-->
+							<img src="/images/{{patientList.gender | genderImg}}" alt=""/>
                         </div>
                     	<div class="mid_con">
-                        	<h2>{{patientList.firstName}} {{patientList.lastName}}</h2>
-							<p><img src="/assets/img/img4.png" alt=""/>{{patientList.email}}</p>
-							<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender}}</p>                            
+                        	<h2 [navPush]="viewPatient">{{patientList.firstName | capitalize}} {{patientList.lastName}}</h2>
+							<p><img src="/assets/img/img4.png" alt=""/>{{patientList.email | uppercase}}</p>
+							<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender | gender}}</p>                            
                             <p><ion-icon name="call"></ion-icon>{{patientList.phonenumber}}</p>
-                            <p><ion-icon name="stopwatch"></ion-icon>{{patientList.dob}}</p>
+                            <p><ion-icon name="stopwatch"></ion-icon>{{patientList.dob | date:"MM/dd/yyyy"}}</p>
 							
 							
                         </div>

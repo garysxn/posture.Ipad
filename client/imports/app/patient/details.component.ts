@@ -4,7 +4,7 @@ import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../shared/show-alert";
 import { PatientAddComponent } from "../patient/addpatient.component";
-
+import { PatientDetailsComponent } from "../patient/view.component";
 import template from './details.component.html';
 
 @Component({
@@ -12,8 +12,9 @@ import template from './details.component.html';
   template
 })
 @InjectUser('user')
-export class PatientDetailsComponent extends MeteorComponent implements OnInit {
+export class PatientListComponent extends MeteorComponent implements OnInit {
    addPatient = PatientAddComponent;
+   viewPatient = PatientDetailsComponent;
    
    patient: any[];
    
@@ -30,11 +31,11 @@ export class PatientDetailsComponent extends MeteorComponent implements OnInit {
         }
         //console.log(patient,'patient');
         this.patient = patient;                
-        this.zone.run(() => {
-            if (patient) {
-                console.log(patient,'patient');                
-            }
-        });
+        //this.zone.run(() => {
+        //    if (patient) {
+        //        console.log(patient,'patient');                
+        //    }
+        //});
     });
       
     }

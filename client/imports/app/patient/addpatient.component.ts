@@ -6,7 +6,7 @@ import { Observable, Subscription, Subject } from "rxjs";
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 //import { Meteor } from 'meteor/meteor';
 import { showAlert } from "../shared/show-alert";
-import { PatientDetailsComponent } from "./details.component";
+import { PatientListComponent } from "./details.component";
 
 
 import template from './addpatient.component.html';
@@ -89,15 +89,15 @@ export class PatientAddComponent extends MeteorComponent implements OnInit {
             gender: this.patientForm.value.gender, 
             
         }
-        console.log(patientObj,'patientObj');
+        //console.log(patientObj,'patientObj');
         this.call("insertPatient", patientObj, (err, patient) => {
             if (err) {
                 showAlert(err.reason, "danger");
                 return;
             }
             if (patient) {                
-                console.log(patient,'insert patients');
-                this.navCtrl.setRoot(PatientDetailsComponent);                
+                //console.log(patient,'insert patients');
+                this.navCtrl.setRoot(PatientListComponent);                
             }
         });
         
