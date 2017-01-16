@@ -4,7 +4,7 @@ import { Meteor } from "meteor/meteor";
 
 import { ProviderService } from "../../services/provider.service";
 import { LandingComponent } from "../layout/landing.component";
-import { PatientDetailsComponent } from "../patient/details.component";
+import { PatientListComponent } from "../patient/details.component";
 import { PostureComponent } from "../analysis/posture.component";
 import { PractitionerDetailsComponent } from "../practitioner/details.component";
 
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
 
     profile = PractitionerDetailsComponent;
     analysis = PostureComponent;
-    patientDetails = PatientDetailsComponent;
+    patientDetails = PatientListComponent;
 
     constructor(private navCtrl: NavController, private navParams: NavParams, private providerService: ProviderService) {
         $('.collapsible').collapsible();
