@@ -6,7 +6,7 @@ import { Patient} from "../models/csv.model";
 export const Patients = new MongoObservable.Collection<Patient>("patients");
 
 
-function loggedIn(userId) {
-  return !!userId;
-}
+//function loggedIn(userId) {
+//  return !!userId;
+//}
  

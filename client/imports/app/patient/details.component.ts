@@ -15,23 +15,22 @@ import template from './details.component.html';
 @InjectUser('user')
 export class PatientListComponent extends MeteorComponent implements OnInit {
    addPatient = PatientAddComponent;
-   viewPatient = PatientDetailsComponent;
+   //viewPatient = PatientDetailsComponent;
    
    
-   
+   practitionerId: string;
    patient: any[];
    
     constructor(private zone: NgZone,
                 private navCtrl: NavController,
                 private navParams: NavParams,)
             {
-                super();
-                this.navParams = {id:'data'}
+                super();                
             }
 
     ngOnInit() {
-      
-        this.call("patientList",(err, patient) => {
+        this.practitionerId = Meteor.userId();
+        this.call("patientList",this.practitionerId,(err, patient) => {
             if (err) {                    
                 showAlert("Error while fetching patient record.", "danger");
                 return;
@@ -47,9 +46,23 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
       
     }
     
-    editPatient(){
-        console.log('editPatient');
-        this.navParams = {id:'12dfas3'}
+    editPatient(patientId){
+        console.log(patientId, 'editPatient');
+        this.navCtrl.push(PatientAddComponent, {
+            patientId: patientId,
+        });
+    }
+    
+    viewPatient(patientId){
+        //console.log(patientId, 'editPatient');
+        this.navCtrl.push(PatientDetailsComponent, {
+            patientId: patientId,
+        });
+    }
+    
+    eventHandler(event){
+        console.log(event,'events');
+        
     }
 
 }

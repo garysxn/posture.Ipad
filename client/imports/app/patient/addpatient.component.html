@@ -9,13 +9,15 @@
 
 <ion-content class="content1">
     <div class="signup_content">
+		<h2 *ngIf="!!patient">Edit Patient</h2>
+		<h2 *ngIf="!patient">Create Patient</h2>
     	<form class="col s12" [formGroup]="patientForm" (ngSubmit)="addPatient()">
         <div class="login_sec">
 			<ion-row>
 				<ion-col width-50>
 					<ion-list>
 						<ion-item>
-							<ion-input formControlName="lastName" type="text" placeholder="LastName"></ion-input>
+							<ion-input formControlName="lastName" type="text" placeholder="LastName" ></ion-input>
 						</ion-item>
 						<div *ngIf="patientForm.controls['lastName'].errors && patientForm.controls['lastName'].touched" class="error">
 							<div [hidden]="!patientForm.controls['lastName'].errors.required">Last Name is required.</div>
