@@ -29,17 +29,15 @@
                         </div>
                     	<div class="mid_con">
                         	<h2 [navPush]="viewPatient">{{patientList.firstName | capitalize}} {{patientList.lastName}}</h2>
-							<p><img src="/assets/img/img4.png" alt=""/>{{patientList.email | uppercase}}</p>
+							<p><img src="/assets/img/img4.png" alt=""/>{{patientList.dobtimestamp | age}} Years</p>
 							<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender | gender}}</p>                            
                             <p><ion-icon name="call"></ion-icon>{{patientList.phonenumber}}</p>
                             <p><ion-icon name="stopwatch"></ion-icon>{{patientList.dob | date:"MM/dd/yyyy"}}</p>
-							
-							
                         </div>
                     	<div class="button_s">
                             <ion-fab right edge>
-                                <button ion-fab mini class="edit"><ion-icon name="create"></ion-icon></button>
-                                 <button ion-fab mini class="lock"><ion-icon name="unlock"></ion-icon></button>
+                                <button ion-fab mini class="edit" [navPush]="addPatient" [navParams]="navParams" (click)="editPatient()"><ion-icon name="create"></ion-icon></button>
+                                
                             </ion-fab>
                         </div>
                   </ion-row>

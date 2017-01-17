@@ -1,55 +1,75 @@
 <ion-header class="profile_main_head">
-  <ion-navbar>
-    <button ion-button icon-only menuToggle>
-      <ion-icon name="menu"></ion-icon> 
-    </button>
-    <div class="top_title">
-      Patients
-    </div>
-  </ion-navbar>
+	<ion-navbar>
+		<button ion-button icon-only menuToggle>
+			<ion-icon name="menu"></ion-icon> 
+		</button>
+		<div class="top_title"> Patients </div>
+	</ion-navbar>
 </ion-header>
 
 <ion-content class="content1">
-
     <div class="signup_content">
     	<form class="col s12" [formGroup]="patientForm" (ngSubmit)="addPatient()">
         <div class="login_sec">
 			<ion-row>
 				<ion-col width-50>
 					<ion-list>
-				  
 						<ion-item>
 							<ion-input formControlName="lastName" type="text" placeholder="LastName"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['lastName'].errors && patientForm.controls['lastName'].touched" class="error">
+							<div [hidden]="!patientForm.controls['lastName'].errors.required">Last Name is required.</div>
+							<div [hidden]="!patientForm.controls['lastName'].errors.pattern">Only character required.</div>
+							<div [hidden]="!patientForm.controls['lastName'].errors.minlength">Minimum two character required.</div>
+							<div [hidden]="!patientForm.controls['lastName'].errors.maxlength">Maximum 30 character required.</div>
+						</div>
 				  
 						<ion-item>
 							<ion-input formControlName="firstName" type="text" placeholder="FirstName"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['firstName'].errors && patientForm.controls['firstName'].touched" class="error">
+							<div [hidden]="!patientForm.controls['firstName'].errors.required">First Name is required.</div>
+							<div [hidden]="!patientForm.controls['firstName'].errors.pattern">Only character required.</div>
+							<div [hidden]="!patientForm.controls['firstName'].errors.minlength">Minimum two character required.</div>
+							<div [hidden]="!patientForm.controls['firstName'].errors.maxlength">Maximum 30 character required.</div>
+						</div>
 						
-						
-							<ion-list radio-group formControlName="gender">
-								<ion-item >
-									<ion-label>Female</ion-label>
-									<ion-radio  value="0" ngDefaultControl></ion-radio>
-								</ion-item>
-								<ion-item>
-									<ion-label>Male</ion-label>
-									<ion-radio  value="1" ngDefaultControl></ion-radio>
-								</ion-item>
-							</ion-list>
+						<ion-list radio-group formControlName="gender">
+							<ion-item >
+								<ion-label>Female</ion-label>
+								<ion-radio  value="0" ngDefaultControl></ion-radio>
+							</ion-item>
+							<ion-item>
+								<ion-label>Male</ion-label>
+								<ion-radio  value="1" ngDefaultControl></ion-radio>
+							</ion-item>
+						</ion-list>
 						
 					  
 						<ion-item width-50>
 							<ion-input formControlName="height" type="number" placeholder="Height(cm)"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['height'].errors && patientForm.controls['height'].touched" class="error">
+							<div [hidden]="!patientForm.controls['height'].errors.required">Height is required.</div>
+							<div [hidden]="!patientForm.controls['height'].errors.minlength">Minimum 2 character required.</div>
+							<div [hidden]="!patientForm.controls['height'].errors.maxlength">Maximum 3 character required.</div>
+						</div>
 						
 						<ion-item width-50>
 							<ion-input formControlName="weight" type="number" placeholder="Weight(kg)"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['weight'].errors && patientForm.controls['weight'].touched" class="error">
+							<div [hidden]="!patientForm.controls['weight'].errors.required">Weight is required.</div>
+							<div [hidden]="!patientForm.controls['weight'].errors.minlength">Minimum 2 character required.</div>
+							<div [hidden]="!patientForm.controls['weight'].errors.maxlength">Maximum 3 character required.</div>
+						</div>
 						
 						<ion-item>
 							<ion-input formControlName="dob" type="date" placeholder="Date of birth (dd/mm/yyyy)"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['dob'].errors && patientForm.controls['dob'].touched" class="error">
+							<div [hidden]="!patientForm.controls['dob'].errors.required">DOB is required.</div>
+						</div>
 				  
 					</ion-list>
 				</ion-col>
@@ -59,26 +79,56 @@
 						<ion-item>
 							<ion-input formControlName="email" type="email" placeholder="Email"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['email'].errors && patientForm.controls['email'].touched" class="error">
+							<div [hidden]="!patientForm.controls['email'].errors.required">Email is required.</div>
+							<div [hidden]="!patientForm.controls['email'].errors.pattern">Invalid email.</div>
+						</div>
 				  
 						<ion-item>
 							<ion-input formControlName="phonenumber" type="tel" placeholder="Phone number"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['phonenumber'].errors && patientForm.controls['phonenumber'].touched" class="error">
+							<div [hidden]="!patientForm.controls['phonenumber'].errors.required">Phone number is required.</div>
+							<div [hidden]="!patientForm.controls['phonenumber'].errors.pattern">Invalid phone number.</div>
+						</div>
 				  
 						<ion-item>
 							<ion-input formControlName="address" type="text" placeholder="Address Line1"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['address'].errors && patientForm.controls['address'].touched" class="error">
+							<div [hidden]="!patientForm.controls['address'].errors.required">Address is required.</div>
+							<div [hidden]="!patientForm.controls['address'].errors.minlength">Minimum 2 character required.</div>
+							<div [hidden]="!patientForm.controls['address'].errors.maxlength">Maximum 50 character required.</div>
+						</div>
 						
 						<ion-item width-50>
 							<ion-input formControlName="pincode" type="text" placeholder="Pincode"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['pincode'].errors && patientForm.controls['pincode'].touched" class="error">
+							<div [hidden]="!patientForm.controls['pincode'].errors.required">Pincode is required.</div>
+							<div [hidden]="!patientForm.controls['pincode'].errors.minlength">Minimum 4 character required.</div>
+							<div [hidden]="!patientForm.controls['pincode'].errors.maxlength">Maximum 7 character required.</div>
+						</div>
 						
 						<ion-item width-50>
 							<ion-input formControlName="city" type="text" placeholder="City"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['city'].errors && patientForm.controls['city'].touched" class="error">
+							<div [hidden]="!patientForm.controls['city'].errors.required">City is required.</div>
+							<div [hidden]="!patientForm.controls['city'].errors.pattern">Only character required.</div>
+							<div [hidden]="!patientForm.controls['city'].errors.minlength">Minimum 2 character required.</div>
+							<div [hidden]="!patientForm.controls['city'].errors.maxlength">Maximum 30 character required.</div>
+						</div>
 						
 						<ion-item>
 							<ion-input formControlName="occupation" type="text" placeholder="Occupation"></ion-input>
 						</ion-item>
+						<div *ngIf="patientForm.controls['occupation'].errors && patientForm.controls['occupation'].touched" class="error">
+							<div [hidden]="!patientForm.controls['occupation'].errors.required">Occupation is required.</div>
+							<div [hidden]="!patientForm.controls['occupation'].errors.pattern">Only character required.</div>
+							<div [hidden]="!patientForm.controls['occupation'].errors.minlength">Minimum 2 character required.</div>
+							<div [hidden]="!patientForm.controls['occupation'].errors.maxlength">Maximum 50 character required.</div>
+						</div>
 				  
 					</ion-list>
 				</ion-col>
@@ -89,6 +139,7 @@
 		</div>
         </form>
        
+
 
         <div [hidden]="error == ''">
             <p class="md-warn" layout="row" layout-fill layout-padding layout-margin>

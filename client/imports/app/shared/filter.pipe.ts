@@ -32,9 +32,9 @@ export class GenderPipe implements PipeTransform {
   transform(value: string): any {
       //console.log(value,'gender');
     if (value == 1)
-        return 'Female';
+        return 'Male';
     else
-      return 'Male'
+      return 'Female'
   }
 }
 
@@ -43,9 +43,9 @@ export class GenderImgPipe implements PipeTransform {
   transform(value: string): any {
       //console.log(value,'gender');
     if (value == 1)
-        return 'no-image-female.jpg';
+        return 'no-image-male.jpg';
     else
-      return 'no-image-male.jpg'
+      return 'no-image-female.jpg'
   }
 }
 
