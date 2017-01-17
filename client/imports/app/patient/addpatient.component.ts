@@ -33,6 +33,8 @@ export class PatientAddComponent extends MeteorComponent implements OnInit {
       private formBuilder: FormBuilder
     ){
         super();
+        let abc = this.navParams.get('id');
+        console.log(abc,'abc');
     }
 
   ngOnInit() {
@@ -53,18 +55,18 @@ export class PatientAddComponent extends MeteorComponent implements OnInit {
     //});
         
     this.patientForm = this.formBuilder.group({
-        firstName: ['', Validators.compose([Validators.required, Validators.pattern("[a-zA-Z ]{2,30}")])],
-        lastName: ['', Validators.compose([Validators.required, Validators.pattern("[a-zA-Z ]{2,30}")])],
+        firstName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern("[a-zA-Z]{2}[a-zA-Z ]*")])],
+        lastName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern("[a-zA-Z][a-zA-Z ]*")])],
         dob: ['', Validators.compose([Validators.required])],
         email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex), Validators.minLength(5),Validators.maxLength(50)])],
         gender:[''],
         height:['', Validators.compose([Validators.required, Validators.pattern("[1-9][0-9]{1,3}")])],
         weight:['', Validators.compose([Validators.required, Validators.pattern("[1-9][0-9]{1,3}")])],
         address:['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],
-        pincode:['', Validators.compose([Validators.required, Validators.minLength(4)])],
-        city:['', Validators.compose([Validators.required, Validators.pattern("[a-zA-Z ]{2,50}")])],
+        pincode:['', Validators.compose([Validators.required, Validators.minLength(4), Validators.maxLength(7)])],
+        city:['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern("[a-zA-Z]{2}[a-zA-Z ]*")])],
         phonenumber:['', Validators.compose([Validators.required, Validators.pattern(phoneRegex)]) ],
-        occupation: ['', Validators.compose([Validators.required, Validators.pattern("[a-zA-Z ]{2,50}")])],
+        occupation: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50), Validators.pattern("[a-zA-Z]{2}[a-zA-Z ]*")])],
     });
 
     this.error = '';

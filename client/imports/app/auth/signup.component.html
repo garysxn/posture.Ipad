@@ -1,9 +1,9 @@
 <ion-header class="sign_in_head">
-  <ion-navbar>
-    <div class="top_title">
-      SIGN UP
-    </div>
-  </ion-navbar>
+	<ion-navbar>
+		<div class="top_title">
+			SIGN UP
+		</div>
+	</ion-navbar>
 </ion-header>
 
 <ion-content class="content1">
@@ -12,54 +12,57 @@
         	<img alt="" src="../assets/img/logo.png">
         </div>
         <form class="col s12" [formGroup]="signupForm" (ngSubmit)="signup()">
-        <div class="login_sec">
-        	<ion-list>
-              <ion-item>
-                <ion-input formControlName="firstName" type="text" placeholder="FirstName"></ion-input>
-              </ion-item>
-              <div *ngIf="signupForm.controls['firstName'].errors && signupForm.controls['firstName'].touched" class="error">
-                    <div [hidden]="!signupForm.controls['firstName'].errors.required">First Name is required.</div>
-                    <div [hidden]="!signupForm.controls['firstName'].errors.pattern">Minimum two character required.</div>
-                </div>
-              
-              <ion-item>
-                <ion-input formControlName="lastName" type="text" placeholder="LastName"></ion-input>
-              </ion-item>
-              <div *ngIf="signupForm.controls['lastName'].errors && signupForm.controls['lastName'].touched" class="error">
-                    <div [hidden]="!signupForm.controls['lastName'].errors.required">Last Name is required.</div>
-                    <div [hidden]="!signupForm.controls['lastName'].errors.pattern">Minimum two character required.</div>
-                </div>
-              
-              <ion-item>
-                <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
-              </ion-item>
-              <div *ngIf="signupForm.controls['password'].errors && signupForm.controls['password'].touched" class="error">
-                    <div [hidden]="!signupForm.controls['password'].errors.required">Password is required.</div>
-                    <div [hidden]="!signupForm.controls['password'].errors.minlength">Minimum 6 character required.</div>
-                </div>
-              
-              <ion-item>
-                <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
-              </ion-item>
-              <div *ngIf="signupForm.controls['email'].errors && signupForm.controls['email'].touched" class="error">
-                    <div [hidden]="!signupForm.controls['email'].errors.required">Email is required.</div>
-                    <div [hidden]="!signupForm.controls['email'].errors.pattern">Invalid email address.</div>
-                </div>
-              
-              <ion-item>
-                <ion-input formControlName="accessCode" type="text" placeholder="Code"></ion-input>
-              </ion-item>
-              <div *ngIf="signupForm.controls['accessCode'].errors && signupForm.controls['accessCode'].touched" class="error">
-                    <div [hidden]="!signupForm.controls['accessCode'].errors.required">Access code is required.</div>
-                    <div [hidden]="!signupForm.controls['accessCode'].errors.minlength">Invalid access code.</div>
-                </div>
-
-              <br/>
-			</ion-list>
-        </div>
-         <div class="sign_in_btn">
-		 	 <button ion-button block [disabled]="!signupForm.valid">Sign Up</button>
-		</div>
+			<div class="login_sec">
+				<ion-list>
+					<ion-item>
+						<ion-input formControlName="firstName" type="text" placeholder="FirstName"></ion-input>
+					</ion-item>
+					<div *ngIf="signupForm.controls['firstName'].errors && signupForm.controls['firstName'].touched" class="error">
+						<div [hidden]="!signupForm.controls['firstName'].errors.required">First Name is required.</div>
+						<div [hidden]="!signupForm.controls['firstName'].errors.pattern">Only character required.</div>
+						<div [hidden]="!signupForm.controls['firstName'].errors.minlength">Minimum two character required.</div>
+						<div [hidden]="!signupForm.controls['firstName'].errors.maxlength">Maximum 30 character required.</div>
+					</div>
+				  
+					<ion-item>
+						<ion-input formControlName="lastName" type="text" placeholder="LastName"></ion-input>
+					</ion-item>
+					<div *ngIf="signupForm.controls['lastName'].errors && signupForm.controls['lastName'].touched" class="error">
+						<div [hidden]="!signupForm.controls['lastName'].errors.required">Last Name is required.</div>
+						<div [hidden]="!signupForm.controls['lastName'].errors.pattern">Only character required.</div>
+						<div [hidden]="!signupForm.controls['lastName'].errors.minlength">Minimum two character required.</div>
+						<div [hidden]="!signupForm.controls['lastName'].errors.maxlength">Maximum 30 character required.</div>
+					</div>
+				  
+					<ion-item>
+					  <ion-input formControlName="password" type="password" placeholder="Password"></ion-input>
+					</ion-item>
+					<div *ngIf="signupForm.controls['password'].errors && signupForm.controls['password'].touched" class="error">
+						<div [hidden]="!signupForm.controls['password'].errors.required">Password is required.</div>
+						<div [hidden]="!signupForm.controls['password'].errors.minlength">Minimum 6 character required.</div>
+						<div [hidden]="!signupForm.controls['password'].errors.maxlength">Maximum 30 character required.</div>
+					</div>
+				  
+					<ion-item>
+					  <ion-input formControlName="email" type="text" placeholder="Email"></ion-input>
+					</ion-item>
+					<div *ngIf="signupForm.controls['email'].errors && signupForm.controls['email'].touched" class="error">
+						<div [hidden]="!signupForm.controls['email'].errors.required">Email is required.</div>
+						<div [hidden]="!signupForm.controls['email'].errors.pattern">Invalid email address.</div>
+					</div>
+				  
+					<ion-item>
+					  <ion-input formControlName="accessCode" type="text" placeholder="Code"></ion-input>
+					</ion-item>
+					<div *ngIf="signupForm.controls['accessCode'].errors && signupForm.controls['accessCode'].touched" class="error">
+						<div [hidden]="!signupForm.controls['accessCode'].errors.required">Access code is required.</div>
+						<div [hidden]="!signupForm.controls['accessCode'].errors.minlength">Invalid access code.</div>
+					</div>
+				</ion-list>
+			</div>
+			<div class="sign_in_btn">
+				<button ion-button block [disabled]="!signupForm.valid">Sign Up</button>
+			</div>
         </form>
         <div class="signup_btm">
         	<p>Already have an account? <a [navPush]="login">SIGN IN</a></p>
