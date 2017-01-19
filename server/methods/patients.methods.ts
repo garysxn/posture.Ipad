@@ -1,17 +1,22 @@
 import {Meteor} from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
-import { Patients } from "../../both/collections/csvs.collection";
-//import {Patient} from "../../both/models/csv.model";
+import { Patients, Appointments } from "../../both/collections/csvs.collection";
+import * as moment from 'moment';
 //import {check} from "meteor/check";
 //import {Email} from "meteor/email";
 //import {isValidEmail, isValidName, isValidPhone} from "../../both/validators";
 
 Meteor.methods({
     
-    //----------------Patient list------------//
+    /*Patient list*/
     "patientList": (practitionerId, skip, limit, searchKey) => {
         //console.log(practitionerId, skip, limit,searchKey);
-        var patientData = Patients.collection.find({practitioner:practitionerId, $or: [{firstName:{ $regex : searchKey, $options:"i" }},{lastName:{ $regex : searchKey, $options:"i" }}, {phonenumber:{ $regex : searchKey, $options:"i" }}] }, {skip: skip, limit: limit}).fetch();
+        var patientData = Patients.collection.find({practitioner:practitionerId,
+                                                   $or: [{firstName:{ $regex : searchKey, $options:"i" }},
+                                                        {lastName:{ $regex : searchKey, $options:"i" }},
+                                                        {phonenumber:{ $regex : searchKey, $options:"i" }}]
+                                                   },
+                                                   {skip: skip, limit: limit}).fetch();
         //console.log(patientData,'patientData');
         if (patientData) {
             return patientData;
@@ -21,8 +26,8 @@ Meteor.methods({
         
     },
     
-    //-------create patients----------//
-    "insertPatient": (patientObj, patientId) => {
+    /*create patients*/
+    "insertPatient": function(patientObj, patientId){
         if (patientObj) {
             patientObj['dobtimestamp'] = removeOffset(patientObj.dob);
             if (patientId) {
@@ -32,7 +37,18 @@ Meteor.methods({
                 return patientIds;
             }else{
                 let patient_Id = Patients.collection.insert(patientObj);
-                //console.log("patient_Id:", patientId);
+                /*
+                var appointmentObj = {
+                    "appointmentTime" : "12:50",
+                    "appointmentDate" : "2017-12-12",
+                    "type" : "posture",
+                    "patient" : patient_Id,
+                    "practitioner" : patientObj.practitioner
+                }
+                let appointmentId = Appointments.collection.insert(appointmentObj);
+                console.log(appointmentId,'appointmentObj');
+                */
+                //console.log(appointmentId,"patient_Id:", patientId);
                 return patient_Id;
             }
         }else{
@@ -40,6 +56,7 @@ Meteor.methods({
         }
     },
     
+    /*fatch patient data*/
     "patientData": function(patientId){
         var patientData = Patients.collection.findOne({_id:patientId});
         //console.log(patientData,'patientData');
@@ -48,14 +65,31 @@ Meteor.methods({
         }else{
             throw new Meteor.Error(403, "Patient not found.");
         }
-    }
-
+    },
     
+    /*insert appointment data*/
+    "insertAppointment": function(appointmentObj){
+        //console.log(appointmentObj,'appointmentObj');
+        let appointmentId = Appointments.collection.insert(appointmentObj);
+        //console.log(appointmentId,"appointmentId");
+        return appointmentId;
+    },
+
+    /*fatch appointment data*/
+    "appointmentData": function(patientId){
+        var appointmentData = Appointments.collection.find({patient:patientId}).fetch();
+        //console.log(appointmentData,'appointmentData');
+        if (appointmentData) {
+            return appointmentData;
+        }else{
+            throw new Meteor.Error(403, "Appointment Data not found.");
+        }
+    },
 
 });
 
 
-//------date insert into db--------//
+/*date insert into db*/
 var removeOffset = function(dobFormat){ //console.log(dobFormat,'remove');
     var userOffset = new Date(dobFormat).getTimezoneOffset();
     var userOffsetMilli = userOffset*60*1000;
@@ -65,7 +99,7 @@ var removeOffset = function(dobFormat){ //console.log(dobFormat,'remove');
     return dateInUtc;
 }
 
-//--------display date ----------//
+/*display date*/
 var addOffset = function(dobFormat){ //console.log(dobFormat,'add');
     var userOffset = new Date(dobFormat).getTimezoneOffset();
     var userOffsetMilli = userOffset*60*1000;

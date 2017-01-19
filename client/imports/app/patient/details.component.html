@@ -48,7 +48,12 @@
 							</div>
 							<div class="button_s">
 								<!--<ion-fab right edge>-->
-									<button ion-fab mini class="edit" (click)="editPatient(patientList._id)"><ion-icon name="create"></ion-icon></button>				
+									<button ion-fab mini class="edit" (click)="editPatient(patientList._id)">
+										<ion-icon name="create"></ion-icon>
+									</button>
+									<button ion-fab mini class="edit" (click)="addAppointment(patientList._id)">
+										<ion-icon name="book"></ion-icon>
+									</button>				
 								<!--</ion-fab>-->
 							</div>
 						</ion-row>

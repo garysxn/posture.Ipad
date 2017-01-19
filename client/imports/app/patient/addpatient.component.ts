@@ -19,14 +19,12 @@ import template from './addpatient.component.html';
 @InjectUser('user')
 export class PatientAddComponent extends MeteorComponent implements OnInit {
    
-   patientForm: FormGroup;
-   patientId : string;
-   practitionerId: string
-  //code: string;
-  //paramsSub: Subscription;
-  //patient: any[];
-  //patientCode: String;
-
+    patientForm: FormGroup;
+    patientId : string;
+    practitionerId: string
+    error: string;
+    patient: any[];
+   
     constructor(private navCtrl: NavController,
                 private navParams: NavParams,
                 private zone: NgZone,

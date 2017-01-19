@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
     patientDetails = PatientListComponent;
 
     constructor(private navCtrl: NavController, private navParams: NavParams, private providerService: ProviderService) {
-        $('.collapsible').collapsible();
+        //$('.collapsible').collapsible();
 
         if(! Meteor.userId()){
             this.navCtrl.setRoot(LandingComponent);

@@ -8,6 +8,7 @@ import { InfiniteScroll } from 'angular2-infinite-scroll';
 import { showAlert } from "../shared/show-alert";
 import { PatientAddComponent } from "../patient/addpatient.component";
 import { PatientDetailsComponent } from "../patient/view.component";
+import { AppointmentComponent } from "../patient/addappointment.component";
 import template from './details.component.html';
 
 @Component({
@@ -24,6 +25,7 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
     patient: any[];
     skip:Number;
     limit:Number;
+    searchText:string;
    
     constructor(private zone: NgZone,
                 private navCtrl: NavController,
@@ -49,6 +51,13 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
     editPatient(patientId){
         //console.log(patientId, 'editPatient');
         this.navCtrl.push(PatientAddComponent, {
+            patientId: patientId,
+        });
+    }
+    
+    addAppointment(patientId){
+        console.log(patientId, 'addAppointment');
+        this.navCtrl.push(AppointmentComponent, {
             patientId: patientId,
         });
     }

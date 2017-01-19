@@ -14,6 +14,7 @@ import template from './view.component.html';
 export class PatientDetailsComponent extends MeteorComponent implements OnInit {
    
    patientData: any[];
+   appointmentData: any[];
    
     constructor(private navCtrl: NavController,
                 private navParams: NavParams,
@@ -30,12 +31,16 @@ export class PatientDetailsComponent extends MeteorComponent implements OnInit {
                 showAlert("Error while fetching patient record.", "danger");
                 return;
             }
-            this.patientData = patient;                
-            //this.zone.run(() => {
-            //    if (patient) {
-            //        console.log(patient,'patient');                
-            //    }
-            //});
+            this.patientData = patient;  
+        });
+        
+        this.call("appointmentData",patientId, (err, result) => {
+            if (err) {                    
+                showAlert("Error while fetching patient record.", "danger");
+                return;
+            }
+            //console.log(result);
+            this.appointmentData = result;  
         });
     }
 
