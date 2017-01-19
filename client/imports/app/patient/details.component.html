@@ -1,12 +1,10 @@
 <ion-header class="profile_main_head">
-  <ion-navbar>
-    <button ion-button icon-only menuToggle>
-      <ion-icon name="menu"></ion-icon> 
-    </button>
-    <div class="top_title">
-      Patients
-    </div>
-  </ion-navbar>
+	<ion-navbar>
+		<button ion-button icon-only menuToggle>
+			<ion-icon name="menu"></ion-icon> 
+		</button>
+		<div class="top_title"> Patients </div>
+	</ion-navbar>
 </ion-header>
 
 <ion-content class="content1">
@@ -17,39 +15,48 @@
            		<ion-grid>
 					<ion-row >
 						<ion-col width-80>
-							<ion-input type="text" value="" placeholder="search" (keypress)="eventHandler($event)"></ion-input>
+							<ion-input type="text" [(ngModel)]="searchText" placeholder="search" (keyup)="eventHandler($event)"></ion-input>
 						</ion-col>
-						<ion-col width-20 right>
-							<button ion-fab mini [navPush]="addPatient"><ion-icon name="add-circle"></ion-icon></button>
-						</ion-col>
-					</ion-row>
-				</ion-grid>
-			</ion-card-content>
-		</ion-card>	
-    	<ion-card class="first_main_con" *ngIf='patient'>
-			<ion-card-content *ngFor='let patientList of patient'>
-           		<ion-grid>
-					<ion-row >
-						<div class="profile_pic">
-							<img src="/images/{{patientList.gender | genderImg}}" alt=""/>
-						</div>
-						<div class="mid_con">
-							<h2 (click)="viewPatient(patientList._id)">{{patientList.firstName | capitalize}} {{patientList.lastName}}</h2>
-							<p><img src="/assets/img/img4.png" alt=""/>{{patientList.dobtimestamp | age}} Years</p>
-							<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender | gender}}</p>                            
-							<p><ion-icon name="call"></ion-icon>{{patientList.phonenumber}}</p>
-							<p><ion-icon name="stopwatch"></ion-icon>{{patientList.dob | date:"MM/dd/yyyy"}}</p>
-						</div>
-						<div class="button_s">
+						<ion-col width-20>
 							<ion-fab right edge>
-								<button ion-fab mini class="edit" (click)="editPatient(patientList._id)"><ion-icon name="create"></ion-icon></button>
-								
+							<button ion-fab mini [navPush]="addPatient" right><ion-icon name="add-circle"></ion-icon></button>
 							</ion-fab>
-						</div>
+						</ion-col>
 					</ion-row>
 				</ion-grid>
 			</ion-card-content>
 		</ion-card>
+		<div *ngIf="patient && patient.length>0" class="search-results" 
+			infinite-scroll
+			[infiniteScrollDistance]="2"
+			[infiniteScrollThrottle]="500"
+			(scrolled)="onScrollDown()"
+			(scrolledUp)="onScrollUp()" [scrollWindow]="false">
+			<ion-card class="first_main_con" *ngFor='let patientList of patient'>
+				<ion-card-content >
+					<ion-grid>
+						<ion-row >
+							<div class="profile_pic">
+								<img src="/images/{{patientList.gender | genderImg}}" alt=""/>
+							</div>
+							<div class="mid_con">
+								<h2 (click)="viewPatient(patientList._id)">{{patientList.firstName | capitalize}} {{patientList.lastName}}</h2>
+								<p><img src="/assets/img/img4.png" alt=""/>{{patientList.dobtimestamp | age}} Years</p>
+								<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender | gender}}</p>                            
+								<p><ion-icon name="call"></ion-icon>{{patientList.phonenumber}}</p>
+								<p><ion-icon name="stopwatch"></ion-icon>{{patientList.dob | date:"MM/dd/yyyy"}}</p>
+							</div>
+							<div class="button_s">
+								<!--<ion-fab right edge>-->
+									<button ion-fab mini class="edit" (click)="editPatient(patientList._id)"><ion-icon name="create"></ion-icon></button>				
+								<!--</ion-fab>-->
+							</div>
+						</ion-row>
+					</ion-grid>
+				</ion-card-content>
+			</ion-card>
+		</div>
+		
 		<ion-card class="first_main_con" *ngIf="patient && patient.length==0">
 			<ion-card-content>
            		<ion-grid>

@@ -3,6 +3,8 @@ import { NavController, NavParams } from 'ionic-angular';
 //import { Meteor } from 'meteor/meteor';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { MeteorComponent } from 'angular2-meteor';
+import { InfiniteScroll } from 'angular2-infinite-scroll';
+
 import { showAlert } from "../shared/show-alert";
 import { PatientAddComponent } from "../patient/addpatient.component";
 import { PatientDetailsComponent } from "../patient/view.component";
@@ -18,8 +20,10 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
    //viewPatient = PatientDetailsComponent;
    
    
-   practitionerId: string;
-   patient: any[];
+    practitionerId: String;
+    patient: any[];
+    skip:Number;
+    limit:Number;
    
     constructor(private zone: NgZone,
                 private navCtrl: NavController,
@@ -30,24 +34,20 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
 
     ngOnInit() {
         this.practitionerId = Meteor.userId();
-        this.call("patientList",this.practitionerId,(err, patient) => {
+        this.skip = 0; this.limit = 5; this.searchText='';
+        this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
             if (err) {                    
                 showAlert("Error while fetching patient record.", "danger");
                 return;
             }
             //console.log(patient,'patient');
-            this.patient = patient;                
-            //this.zone.run(() => {
-            //    if (patient) {
-            //        console.log(patient,'patient');                
-            //    }
-            //});
+            this.patient = patient; 
         });
       
     }
     
     editPatient(patientId){
-        console.log(patientId, 'editPatient');
+        //console.log(patientId, 'editPatient');
         this.navCtrl.push(PatientAddComponent, {
             patientId: patientId,
         });
@@ -61,8 +61,43 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
     }
     
     eventHandler(event){
-        console.log(event,'events');
+        //console.log(event,'events');
+        //console.log(this.searchText,'searchText');
         
+        this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
+            if (err) {                    
+                showAlert("Error while fetching patient record.", "danger");
+                return;
+            }
+            //console.log(this.patient,'patient', patient);
+            this.patient = patient;
+            
+        });
+        
+    }
+    
+    onScrollDown () {
+        //console.log('scrolled down!!');
+        //console.log(this.searchText,'searchText');
+        
+        this.skip += 5;
+        this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
+            if (err) {                    
+                showAlert("Error while fetching patient record.", "danger");
+                return;
+            }
+            //console.log(this.patient,'patient', patient);
+            let thisPatient = this.patient; 
+            
+            let newArray = thisPatient.concat(patient);
+            //console.log(newArray,'patient');
+            this.patient = newArray
+            
+        });
+    }
+ 
+    onScrollUp () {
+    	//console.log('scrolled up!!')
     }
 
 }

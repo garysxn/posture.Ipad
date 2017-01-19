@@ -13,3 +13,8 @@ body.web {
 .top_contents h2 {padding-top: 15px;margin-bottom:0px;}
 .top_contents p {margin-top: 0;}
 .btm_links ion-list button div.item-inner,.btm_links ion-list button{border:none !important;}
+
+.search-results {
+            height: 100%;
+            overflow: scroll;
+        }
