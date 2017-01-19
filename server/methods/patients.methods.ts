@@ -9,8 +9,9 @@ import { Patients } from "../../both/collections/csvs.collection";
 Meteor.methods({
     
     //----------------Patient list------------//
-    "patientList": (practitionerId) => {
-        var patientData = Patients.collection.find({practitioner:practitionerId}).fetch();
+    "patientList": (practitionerId, skip, limit, searchKey) => {
+        //console.log(practitionerId, skip, limit,searchKey);
+        var patientData = Patients.collection.find({practitioner:practitionerId, $or: [{firstName:{ $regex : searchKey, $options:"i" }},{lastName:{ $regex : searchKey, $options:"i" }}, {phonenumber:{ $regex : searchKey, $options:"i" }}] }, {skip: skip, limit: limit}).fetch();
         //console.log(patientData,'patientData');
         if (patientData) {
             return patientData;

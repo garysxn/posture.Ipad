@@ -9,6 +9,7 @@ import { FileDropModule } from "angular2-file-drop";
 import { MOBILE_DECLARATIONS } from "./mobile/index";
 import { AppMobileComponent } from "./mobile/app.component.mobile";
 import { IonicModule, IonicApp } from "ionic-angular";
+import { InfiniteScrollModule } from 'angular2-infinite-scroll';
 
 import { AppComponent } from "./app.component.web";
 import { routes, ROUTES_PROVIDERS } from './app.routes';
@@ -35,7 +36,8 @@ moduleDefinition = {
     ReactiveFormsModule,
     AccountsModule,
     Ng2PaginationModule,
-    FileDropModule
+    FileDropModule,
+    InfiniteScrollModule
   ],
   declarations: [
     ...SHARED_DECLARATIONS,
