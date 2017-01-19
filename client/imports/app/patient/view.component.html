@@ -85,7 +85,12 @@
                   <ion-row>
 						<div class="profile_contain">
                         	<h2>Visit Details</h2>
-                            
+                            <ion-row *ngFor="let appointmentItems of appointmentData">
+								<ion-col>
+									<p class="name_p">Appointment:</p>
+									<p class="data_p">{{appointmentItems.appointmentDate | date}} @ {{appointmentItems.appointmentTime}}  {{appointmentItems.type}}</p>
+								</ion-col>
+							</ion-row>
                         </div>
                   </ion-row>
 				</ion-grid>
