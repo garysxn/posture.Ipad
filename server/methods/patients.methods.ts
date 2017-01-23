@@ -27,16 +27,28 @@ Meteor.methods({
     },
     
     /*create patients*/
-    "insertPatient": function(patientObj, patientId){
+    "insertPatient": function(patientObj, patientId):any{
         if (patientObj) {
             patientObj['dobtimestamp'] = removeOffset(patientObj.dob);
+            
             if (patientId) {
                 //console.log(patientId,'patientId');
                 let patientIds = Patients.collection.update({_id:patientId}, {$set:patientObj});
-                //console.log("patientId:", patientIds);
-                return patientIds;
+                if (patientIds) {
+                    //console.log("patientId:", patientIds);
+                    return patientIds;    
+                }                
             }else{
-                let patient_Id = Patients.collection.insert(patientObj);
+                let isExists = Patients.collection.findOne({email:patientObj.email});
+                if (isExists) {
+                    throw new Meteor.Error(403, "Patient email address already exists.");
+                }else{
+                    let patient_Id = Patients.collection.insert(patientObj);
+                    if (patient_Id) {
+                        return patient_Id;
+                    }    
+                }
+                
                 /*
                 var appointmentObj = {
                     "appointmentTime" : "12:50",
@@ -49,7 +61,7 @@ Meteor.methods({
                 console.log(appointmentId,'appointmentObj');
                 */
                 //console.log(appointmentId,"patient_Id:", patientId);
-                return patient_Id;
+                
             }
         }else{
             throw new Meteor.Error(403, "error.");

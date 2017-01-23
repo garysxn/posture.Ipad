@@ -17,14 +17,15 @@ import template from './details.component.html';
 })
 @InjectUser('user')
 export class PatientListComponent extends MeteorComponent implements OnInit {
-   addPatient = PatientAddComponent;
-   //viewPatient = PatientDetailsComponent;
+    /* navPush variables */
+    addPatient = PatientAddComponent;
+    //viewPatient = PatientDetailsComponent;
    
-   
-    practitionerId: String;
+    /* variables */
+    practitionerId: string;
     patient: any[];
-    skip:Number;
-    limit:Number;
+    skip:number;
+    limit:number;
     searchText:string;
    
     constructor(private zone: NgZone,
@@ -33,78 +34,70 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
             {
                 super();                
             }
-
+    
+    /* ng init */
     ngOnInit() {
         this.practitionerId = Meteor.userId();
         this.skip = 0; this.limit = 5; this.searchText='';
+        /* fetch all patient data */
         this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
             if (err) {                    
                 showAlert("Error while fetching patient record.", "danger");
                 return;
             }
-            //console.log(patient,'patient');
             this.patient = patient; 
-        });
-      
+        });      
     }
     
+    /* redirect to patient edit page */
     editPatient(patientId){
-        //console.log(patientId, 'editPatient');
         this.navCtrl.push(PatientAddComponent, {
             patientId: patientId,
         });
     }
     
+    /* redirect to patient appointment page */
     addAppointment(patientId){
-        console.log(patientId, 'addAppointment');
         this.navCtrl.push(AppointmentComponent, {
             patientId: patientId,
         });
     }
     
+    /* redirect to patient details page */
     viewPatient(patientId){
-        //console.log(patientId, 'editPatient');
         this.navCtrl.push(PatientDetailsComponent, {
             patientId: patientId,
         });
     }
     
-    eventHandler(event){
-        //console.log(event,'events');
-        //console.log(this.searchText,'searchText');
+    /* search patient on keypress */
+    searchPatient(event){
         
         this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
             if (err) {                    
                 showAlert("Error while fetching patient record.", "danger");
                 return;
             }
-            //console.log(this.patient,'patient', patient);
             this.patient = patient;
-            
-        });
-        
+        });        
     }
     
+    /* infinite scroll down event */
     onScrollDown () {
-        //console.log('scrolled down!!');
-        //console.log(this.searchText,'searchText');
-        
-        this.skip += 5;
+        let count = 5;
+        this.skip = this.skip+count;
         this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
             if (err) {                    
                 showAlert("Error while fetching patient record.", "danger");
                 return;
             }
-            //console.log(this.patient,'patient', patient);
             let thisPatient = this.patient; 
-            
             let newArray = thisPatient.concat(patient);
-            //console.log(newArray,'patient');
             this.patient = newArray
-            
         });
     }
- 
+    
+    /* infinite scroll up event */
     onScrollUp () {
     	//console.log('scrolled up!!')
     }

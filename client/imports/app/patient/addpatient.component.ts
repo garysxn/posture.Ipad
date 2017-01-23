@@ -73,7 +73,7 @@ export class PatientAddComponent extends MeteorComponent implements OnInit {
             lastName: ['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(30), Validators.pattern("[a-zA-Z][a-zA-Z ]*")])],
             dob: ['', Validators.compose([Validators.required])],
             email: ['', Validators.compose([Validators.required, Validators.pattern(emailRegex), Validators.minLength(5),Validators.maxLength(50)])],
-            gender:[''],
+            gender:['', Validators.required],
             height:['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3), Validators.pattern("[1-9][0-9]{1,3}")])],
             weight:['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(3), Validators.pattern("[1-9][0-9]{1,3}")])],
             address:['', Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(50)])],

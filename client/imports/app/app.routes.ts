@@ -1,7 +1,7 @@
 import { Route } from '@angular/router';
 import { Meteor } from 'meteor/meteor';
 
-import { SignupComponent } from "./auth/singup.component";
+import { SignupComponent } from "./auth/signup.component";
 import { RecoverComponent } from "./auth/recover.component";
 import { LoginComponent } from "./auth/login.component.web";
 import { DashboardComponent } from "./dashboard/dashboard.component";
