@@ -17,7 +17,7 @@
                         	<img src="/images/no-image-male.jpg" alt=""/>
                         </div>
                     	<div class="mid_con">
-                        	<h2>{{patientData.firstName}} {{patientData.lastName}}</h2>
+                        	<h2>{{patientData.firstName | capitalize}} {{patientData.lastName}}</h2>
                             <p><img src="/assets/img/img1.png" alt=""/>{{patientData.gender | gender}}</p>
                             <p><img src="/assets/img/img2.png" alt=""/>{{patientData.dob | age}} yrs</p>                            
                             <p><ion-icon name="stopwatch"></ion-icon>{{patientData.dob | date}}</p>
@@ -25,7 +25,7 @@
                         </div>
                     	<div class="button_s">
                             <ion-fab right edge>
-                                <button ion-fab mini class="edit"><ion-icon name="create"></ion-icon></button>
+                                <button ion-fab mini class="edit" (click)="editPatient(patientData._id)"><ion-icon name="create"></ion-icon></button>
                             </ion-fab>
                         </div>
                   </ion-row>

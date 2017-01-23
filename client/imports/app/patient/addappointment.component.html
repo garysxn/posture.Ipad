@@ -9,8 +9,7 @@
 
 <ion-content class="content1">
     <div class="signup_content">
-		<h2 *ngIf="!!patient">Edit Appointment</h2>
-		<h2 *ngIf="!patient">Create Appointment</h2>
+		<h2>Add Appointment</h2>
     	<form class="col s12" [formGroup]="appointmentForm" (ngSubmit)="addAppointment()">
         <div class="login_sec">
 			<ion-row>
@@ -20,7 +19,7 @@
 							<img src="/images/{{patient.gender | genderImg}}" alt=""/>
 						</div>
 						<div class="mid_con">
-							<h2>{{patient.firstName | capitalize}} {{patient.lastName}}</h2>
+							<h2>{{patient.firstName | capitalize}} {{patient.lastName | capitalize}}</h2>
 							<p><img src="/assets/img/img4.png" alt=""/>{{patient.dobtimestamp | age}} Years</p>
 							<p><img src="/assets/img/img1.png" alt=""/>{{patient.gender | gender}}</p>                            
 							<p><ion-icon name="call"></ion-icon>{{patient.phonenumber}}</p>

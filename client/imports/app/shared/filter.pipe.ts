@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'age' })
 export class AgePipe implements PipeTransform {
-  transform(birthDate:date): Number {
+  transform(birthDate): Number {
       birthDate = new Date(birthDate);
       var today = new Date();
       var age = today.getFullYear() - birthDate.getFullYear();

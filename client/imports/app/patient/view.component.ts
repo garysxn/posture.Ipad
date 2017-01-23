@@ -4,6 +4,8 @@ import { NavController, NavParams } from 'ionic-angular';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { MeteorComponent } from 'angular2-meteor';
 import { showAlert } from "../shared/show-alert";
+import { PatientAddComponent } from "../patient/addpatient.component";
+
 import template from './view.component.html';
 
 @Component({
@@ -41,6 +43,13 @@ export class PatientDetailsComponent extends MeteorComponent implements OnInit {
             }
             //console.log(result);
             this.appointmentData = result;  
+        });
+    }
+    
+    editPatient(patientId){
+        //console.log(patientId, 'editPatient');
+        this.navCtrl.push(PatientAddComponent, {
+            patientId: patientId,
         });
     }
 

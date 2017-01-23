@@ -6,7 +6,7 @@ import { StatusBar } from 'ionic-native';
 
 import {LandingComponent} from "../layout/landing.component";
 import {DashboardComponent} from "../dashboard/dashboard.component";
-import {PatientDetailsComponent} from "../patient/details.component";
+//import {PatientDetailsComponent} from "../patient/view.component";
 import {LoginComponent} from "../auth/login.component.web";
 import {SignupComponent} from "../auth/signup.component";
 
@@ -32,7 +32,7 @@ export class AppMobileComponent {
     // set our app's pages
     this.pages = [
       { title: 'Dashboard', component: DashboardComponent },
-      { title: "My Profile", component: PatientDetailsComponent },
+      //{ title: "My Profile", component: PatientDetailsComponent },
     ];
   }
 

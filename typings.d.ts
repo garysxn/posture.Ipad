@@ -39,3 +39,10 @@ declare module 'meteor/tmeasday:publish-counts' {
 
   export const Counts: CountsObject;
 }
+
+declare module "meteor/alanning:roles" {
+  export module Roles {
+    function userIsInRole(id?: any,value?: any): boolean{  }
+    function addUsersToRoles(id?: any,value?: any): boolean{ }
+  }
+}

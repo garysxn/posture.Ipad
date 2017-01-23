@@ -15,7 +15,7 @@
            		<ion-grid>
 					<ion-row >
 						<ion-col width-80>
-							<ion-input type="text" [(ngModel)]="searchText" placeholder="search" (keyup)="eventHandler($event)"></ion-input>
+							<ion-input type="text" [(ngModel)]="searchText" placeholder="search" (keyup)="searchPatient($event)"></ion-input>
 						</ion-col>
 						<ion-col width-20>
 							<ion-fab right edge>
@@ -40,7 +40,7 @@
 								<img src="/images/{{patientList.gender | genderImg}}" alt=""/>
 							</div>
 							<div class="mid_con">
-								<h2 (click)="viewPatient(patientList._id)">{{patientList.firstName | capitalize}} {{patientList.lastName}}</h2>
+								<h2 (click)="viewPatient(patientList._id)">{{patientList.firstName | capitalize}} {{patientList.lastName | capitalize}}</h2>
 								<p><img src="/assets/img/img4.png" alt=""/>{{patientList.dobtimestamp | age}} Years</p>
 								<p><img src="/assets/img/img1.png" alt=""/>{{patientList.gender | gender}}</p>                            
 								<p><ion-icon name="call"></ion-icon>{{patientList.phonenumber}}</p>

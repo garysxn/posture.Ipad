@@ -39,13 +39,16 @@
 						<ion-list radio-group formControlName="gender">
 							<ion-item >
 								<ion-label>Female</ion-label>
-								<ion-radio  value="0" ngDefaultControl></ion-radio>
+								<ion-radio  value="0" ngDefaultControl [formControl]="patientForm.controls['gender']"></ion-radio>
 							</ion-item>
 							<ion-item>
 								<ion-label>Male</ion-label>
-								<ion-radio  value="1" ngDefaultControl></ion-radio>
+								<ion-radio  value="1" ngDefaultControl [formControl]="patientForm.controls['gender']"></ion-radio>
 							</ion-item>
 						</ion-list>
+						<div *ngIf="!patientForm.controls['gender'].valid && patientForm.controls['height'].touched" class="error">
+							<div [hidden]="!patientForm.controls['gender'].errors.required">Gender is required.</div>
+						</div>
 						
 					  
 						<ion-item width-50>
