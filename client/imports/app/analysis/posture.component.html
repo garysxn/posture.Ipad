@@ -11,26 +11,15 @@
 
 <ion-content class="content1">
     <div class="main_pro_content">
-    	<ion-card class="first_main_con">
-            <ion-card-content>
-                <ion-grid>
-                    <ion-row>
-                          
-                        Posture Analysis page...
-                        <ion-col width-50>
-                            <div id="signature-pad" class="m-signature-pad">
-                                <div class="m-signature-pad--body" style="border: 1px solid red; width: 300px; height: 150px;">
-                                  <canvas style="background-image:url('/assets/img/profile_pic.png')"></canvas>
-                                </div>
-                                <div class="m-signature-pad--footer">
-                                  <button class="button clear" data-action="clear">Clear</button>
-                                  <button class="button save" data-action="save">Save</button>
-                                </div>
-                            </div>
-                        </ion-col>
-                    </ion-row>
-                </ion-grid>
-            </ion-card-content>
-        </ion-card>
+		<div class="m-signature-pad--body" style="border: 1px solid red; width: 100%; height: 80%;">
+		  <canvas id="postureCanvas" style="background-image:url('images/man.jpg')"
+				  (click)="draw($event)"
+				  width="480" height="450"
+				  ></canvas>
+		</div>
+		<div class="m-signature-pad--footer">
+			<button class="button clear" data-action="clear" (click)="removePostureGrid()">Prev</button>
+			<button class="button save" data-action="save" (click)="drawPostureGrid()">Next</button>
+		</div>
     </div>
 </ion-content>
