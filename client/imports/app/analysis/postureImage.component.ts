@@ -5,20 +5,17 @@ import {MeteorComponent} from 'angular2-meteor';
 import {showAlert} from "../shared/show-alert";
 
 
-import template from './posture.component.html';
+import template from './postureImage.component.html';
 
 @Component({
   selector: '',
   template
 })
 @InjectUser('user')
-export class PostureComponent extends MeteorComponent implements OnInit {
+export class PostureImageComponent extends MeteorComponent implements OnInit {
    
-    restorePoints: any[];
-    
     constructor() {
         super();
-        this.restorePoints=[];
     }
 
     ngOnInit() {
@@ -39,12 +36,6 @@ export class PostureComponent extends MeteorComponent implements OnInit {
         context.beginPath();
         context.arc(posx, posy, 2, 0, 2*Math.PI);
         context.fill();
-        
-        /* add canvas state event into array */
-        var imgSrc = canvas.toDataURL('image/png');
-        this.restorePoints.push(imgSrc);
-        console.log(this.restorePoints,'restorePoints');
-        
     }
     
     drawPostureGrid(){
@@ -55,28 +46,6 @@ export class PostureComponent extends MeteorComponent implements OnInit {
         var canvas = document.getElementById("postureCanvas");
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
-    }
-    
-    drawUndo(){        
-             var canvas = document.getElementById("postureCanvas");
-            var canvasContext = canvas.getContext('2d');
-        var oImg = new Image();
-        
-        var imgUrl = this.restorePoints.pop();
-        console.log('restorePoints',imgUrl);
-        
-        oImg.src = imgUrl;
-        canvasContext.drawImage(oImg, 0, 0);
-        
-        //oImg.onload = function() {
-        //    console.log(oImg,'oImg');
-        //    var canvas = document.getElementById("postureCanvas");
-        //    var canvasContext = canvas.getContext('2d');
-        //    //canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-        //    canvasContext.drawImage(oImg, 0, 0);
-        //}
-        
-        
     }
     
     //ngAfterViewInit(){

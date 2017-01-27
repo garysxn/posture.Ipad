@@ -51,7 +51,7 @@ export class PatientAddComponent extends MeteorComponent implements OnInit {
                 this.patientForm.controls['lastName'].setValue(patient.lastName);
                 this.patientForm.controls['email'].setValue(patient.email);
                 this.patientForm.controls['dob'].setValue(patient.dob);
-                ////this.patientForm.controls['gender'].setValue(patient.gender);
+                this.patientForm.controls['gender'].setValue(patient.gender);
                 
                 this.patientForm.controls['height'].setValue(patient.height);
                 this.patientForm.controls['weight'].setValue(patient.weight);
