@@ -4,31 +4,37 @@ import { InjectUser } from 'angular2-meteor-accounts-ui';
 import {MeteorComponent} from 'angular2-meteor';
 import {showAlert} from "../shared/show-alert";
 
-
 import template from './posture.component.html';
 
 @Component({
-  selector: '',
+  selector: 'posture',
   template
 })
 @InjectUser('user')
 export class PostureComponent extends MeteorComponent implements OnInit {
    
-    restorePoints: any[];
+    restorePoints: any[];    
+    imgSrc:string;
+    drawGrid: boolean;
+    undoFlag: boolean;
+    firstFrame: string;
     
     constructor() {
         super();
         this.restorePoints=[];
+        this.drawGrid = true;
+        this.undoFlag = true;
     }
 
     ngOnInit() {
-        
+        var canvas = document.getElementById('postureCanvas');
+        this.firstFrame = canvas.toDataURL('image/png');
+        this.restorePoints.push(this.firstFrame);
     }
     
     
-    
-    /* draw dots*/
-    draw(e) {
+    /* draw dots on image */
+    drawDots(e) {
         var canvas = document.getElementById('postureCanvas');
         var context = canvas.getContext('2d');
         //console.log(e,'event');
@@ -39,55 +45,72 @@ export class PostureComponent extends MeteorComponent implements OnInit {
         context.beginPath();
         context.arc(posx, posy, 2, 0, 2*Math.PI);
         context.fill();
-        
-        /* add canvas state event into array */
-        var imgSrc = canvas.toDataURL('image/png');
-        this.restorePoints.push(imgSrc);
-        console.log(this.restorePoints,'restorePoints');
-        
+                
+        this.imgSrc = canvas.toDataURL('image/png');
+        this.restorePoints.push(this.imgSrc);
+        //console.log(this.restorePoints.length,'restorePoints');        
     }
     
+    /* posture grid draw */
     drawPostureGrid(){
-        drawGrid()
+        this.drawGrid = false;
+        var canvas = document.getElementById("postureCanvas");    
+        var gridOptions = {
+            majorLines: {
+                separation: 20,
+                color: '#808080'
+            }
+        };    
+        drawGridLines(canvas, gridOptions.majorLines);
+                
+        this.imgSrc = canvas.toDataURL('image/png');
+        this.restorePoints.push(this.imgSrc);
+        //console.log(this.restorePoints,'this.restorePoints');        
     }
     
+    /* clear all draw events */
     removePostureGrid(){
         var canvas = document.getElementById("postureCanvas");
         var context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.width, canvas.height);
+        this.restorePoints=[];
+        this.drawGrid = true;
+        this.undoFlag = true;
     }
     
-    drawUndo(){        
-             var canvas = document.getElementById("postureCanvas");
-            var canvasContext = canvas.getContext('2d');
-        var oImg = new Image();
+    /* undo draw elements from canvas */
+    drawUndo(){
+        //console.log(this.undoFlag,'this.undoFlag');
+        if (this.undoFlag) {
+            let firstPop = this.restorePoints.pop();
+            //console.log('firstPop');
+        }
         
-        var imgUrl = this.restorePoints.pop();
-        console.log('restorePoints',imgUrl);
+        var canvas = document.getElementById("postureCanvas");
+        var canvasContext = canvas.getContext('2d');
+        var oImg = new Image();        
+        oImg.src = this.restorePoints.pop();
         
-        oImg.src = imgUrl;
+        canvasContext.clearRect(0, 0, canvas.width, canvas.height);
         canvasContext.drawImage(oImg, 0, 0);
         
-        //oImg.onload = function() {
-        //    console.log(oImg,'oImg');
-        //    var canvas = document.getElementById("postureCanvas");
-        //    var canvasContext = canvas.getContext('2d');
-        //    //canvasContext.clearRect(0, 0, canvas.width, canvas.height);
-        //    canvasContext.drawImage(oImg, 0, 0);
-        //}
+        this.undoFlag = false;
         
+        //console.log(this.restorePoints.length,'length');
+        if (this.restorePoints.length < 1) {
+            this.restorePoints=[];
+            this.drawGrid = true;
+            this.undoFlag = true;
+            //console.log('<1',this.firstFrame);
+            this.restorePoints.push(this.firstFrame);
+        }
         
     }
     
-    //ngAfterViewInit(){
-    //    drawGrid()
-    //}
-    
-
 }
 
-/* draw grid */
-function drawGrid() {
+/* create grid */
+/*function drawGrid() {
     var cnv = document.getElementById("postureCanvas");
     
     var gridOptions = {
@@ -106,7 +129,7 @@ function drawGrid() {
 
     return;
 }
-
+*/
 /* draw grid lines */
 function drawGridLines(cnv, lineOptions) {
 
@@ -142,7 +165,11 @@ function drawGridLines(cnv, lineOptions) {
         ctx.lineTo(iWidth, y);
         ctx.stroke();
     }
-
+    
+    //var abc = cnv.toDataURL('image/png');
+    //console.log(abc);
+    //this.restorePoints.push(abc);
+    //console.log(this.restorePoints,'this.restorePoints');
     ctx.closePath();
 
     return;
