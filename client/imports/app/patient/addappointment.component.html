@@ -1,0 +1,70 @@
+<ion-header class="profile_main_head">
+	<ion-navbar>
+		<button ion-button icon-only menuToggle>
+			<ion-icon name="menu"></ion-icon> 
+		</button>
+		<div class="top_title"> Appointment </div>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+    <div class="signup_content">
+		<h2>Add Appointment</h2>
+    	<form class="col s12" [formGroup]="appointmentForm" (ngSubmit)="addAppointment()">
+        <div class="login_sec">
+			<ion-row>
+				<ion-col *ngIf="patient" width-50>
+					<ion-row >
+						<div class="profile_pic">
+							<img src="/images/{{patient.gender | genderImg}}" alt=""/>
+						</div>
+						<div class="mid_con">
+							<h2>{{patient.firstName | capitalize}} {{patient.lastName | capitalize}}</h2>
+							<p><img src="/assets/img/img4.png" alt=""/>{{patient.dobtimestamp | age}} Years</p>
+							<p><img src="/assets/img/img1.png" alt=""/>{{patient.gender | gender}}</p>                            
+							<p><ion-icon name="call"></ion-icon>{{patient.phonenumber}}</p>
+							<p><ion-icon name="stopwatch"></ion-icon>{{patient.dob | date:"MM/dd/yyyy"}}</p>
+						</div>
+					</ion-row>
+				</ion-col>
+				<ion-col width-50>
+					<ion-list>
+						<ion-item>
+							<ion-input formControlName="type" type="text" placeholder="Type"></ion-input>
+						</ion-item>
+						<div *ngIf="appointmentForm.controls['type'].errors && appointmentForm.controls['type'].touched" class="error">
+							<div [hidden]="!appointmentForm.controls['type'].errors.required">Type is required.</div>
+						</div>
+						
+						<ion-item>
+							<ion-input formControlName="appointmentdate" type="date" placeholder="Date (dd/mm/yyyy)"></ion-input>
+						</ion-item>
+						<div *ngIf="appointmentForm.controls['appointmentdate'].errors && appointmentForm.controls['appointmentdate'].touched" class="error">
+							<div [hidden]="!appointmentForm.controls['appointmentdate'].errors.required">Appointment date is required.</div>
+						</div>
+				  
+						<ion-item>
+							<ion-input formControlName="appointmenttime" type="time" placeholder="Time (hh:mm)"></ion-input>
+						</ion-item>
+						<div *ngIf="appointmentForm.controls['appointmenttime'].errors && appointmentForm.controls['appointmenttime'].touched" class="error">
+							<div [hidden]="!appointmentForm.controls['appointmenttime'].errors.required">Appointment time is required.</div>
+						</div>
+				  
+					</ion-list>
+				</ion-col>				
+			</ion-row>
+        </div>
+         <div class="sign_in_btn">
+		 	 <button ion-button block [disabled]="!appointmentForm.valid">SUBMIT</button>
+		</div>
+        </form>
+       
+
+
+        <div [hidden]="error == ''">
+            <p class="md-warn" layout="row" layout-fill layout-padding layout-margin>
+            <p class="md-body-1">{{ error }}</p>
+            </p>
+        </div>
+    </div>
+</ion-content>

@@ -12,15 +12,13 @@
 <ion-content class="content1">
     <div class="main_pro_content">
 		<div class="m-signature-pad--body" style="border: 1px solid red; width: 100%; height: 80%;">
-		  <canvas id="postureCanvas" style="background-image:url('images/man.jpg')"
-				  (click)="drawDots($event)"
+		  <canvas id="postureCanvas" style="background-image:url('images/man.jpg')"				  
 				  width="480" height="450"
 				  ></canvas>
 		</div>
 		<div class="m-signature-pad--footer">
-			<button class="button" data-action="clear" (click)="removePostureGrid()">Clear</button>
-			<button class="button" data-action="save" (click)="drawPostureGrid()" *ngIf="drawGrid">drawGrid</button>
-			<button class="button" data-action="save" (click)="drawUndo()" *ngIf="restorePoints && restorePoints.length>0">Undo</button>
+			<button class="button clear" data-action="clear" >Prev</button>
+			<button class="button save" data-action="save" >Next</button>
 		</div>
     </div>
 </ion-content>

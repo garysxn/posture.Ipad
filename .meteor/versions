@@ -59,7 +59,6 @@ mobile-experience@1.0.4
 mobile-status-bar@1.0.13
 modules@0.7.7
 modules-runtime@0.7.7
-momentjs:moment@2.17.1
 mongo@1.1.14
 mongo-id@1.0.6
 mys:accounts-phone@0.0.21

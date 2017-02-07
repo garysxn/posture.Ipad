@@ -3,9 +3,12 @@ import { NavController, NavParams } from 'ionic-angular';
 //import { Meteor } from 'meteor/meteor';
 import { InjectUser } from 'angular2-meteor-accounts-ui';
 import { MeteorComponent } from 'angular2-meteor';
+import { InfiniteScroll } from 'angular2-infinite-scroll';
+
 import { showAlert } from "../shared/show-alert";
 import { PatientAddComponent } from "../patient/addpatient.component";
 import { PatientDetailsComponent } from "../patient/view.component";
+import { AppointmentComponent } from "../patient/addappointment.component";
 import template from './details.component.html';
 
 @Component({
@@ -14,42 +17,89 @@ import template from './details.component.html';
 })
 @InjectUser('user')
 export class PatientListComponent extends MeteorComponent implements OnInit {
-   addPatient = PatientAddComponent;
-   viewPatient = PatientDetailsComponent;
+    /* navPush variables */
+    addPatient = PatientAddComponent;
+    //viewPatient = PatientDetailsComponent;
    
-   
-   
-   patient: any[];
+    /* variables */
+    practitionerId: string;
+    patient: any[];
+    skip:number;
+    limit:number;
+    searchText:string;
    
     constructor(private zone: NgZone,
                 private navCtrl: NavController,
                 private navParams: NavParams,)
             {
-                super();
-                this.navParams = {id:'data'}
+                super();                
             }
-
+    
+    /* ng init */
     ngOnInit() {
-      
-        this.call("patientList",(err, patient) => {
+        this.practitionerId = Meteor.userId();
+        this.skip = 0; this.limit = 5; this.searchText='';
+        /* fetch all patient data */
+        this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
             if (err) {                    
                 showAlert("Error while fetching patient record.", "danger");
                 return;
             }
-            //console.log(patient,'patient');
-            this.patient = patient;                
-            //this.zone.run(() => {
-            //    if (patient) {
-            //        console.log(patient,'patient');                
-            //    }
-            //});
-        });
-      
+            this.patient = patient; 
+        });      
     }
     
-    editPatient(){
-        console.log('editPatient');
-        this.navParams = {id:'12dfas3'}
+    /* redirect to patient edit page */
+    editPatient(patientId){
+        this.navCtrl.push(PatientAddComponent, {
+            patientId: patientId,
+        });
+    }
+    
+    /* redirect to patient appointment page */
+    addAppointment(patientId){
+        this.navCtrl.push(AppointmentComponent, {
+            patientId: patientId,
+        });
+    }
+    
+    /* redirect to patient details page */
+    viewPatient(patientId){
+        this.navCtrl.push(PatientDetailsComponent, {
+            patientId: patientId,
+        });
+    }
+    
+    /* search patient on keypress */
+    searchPatient(event){
+        
+        this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
+            if (err) {                    
+                showAlert("Error while fetching patient record.", "danger");
+                return;
+            }
+            this.patient = patient;
+        });        
+    }
+    
+    /* infinite scroll down event */
+    onScrollDown () {
+        let count = 5;
+        this.skip = this.skip+count;
+        this.call("patientList",this.practitionerId, this.skip, this.limit, this.searchText, (err, patient) => {
+            if (err) {                    
+                showAlert("Error while fetching patient record.", "danger");
+                return;
+            }
+            let thisPatient = this.patient; 
+            let newArray = thisPatient.concat(patient);
+            this.patient = newArray
+        });
+    }
+    
+    /* infinite scroll up event */
+    onScrollUp () {
+    	//console.log('scrolled up!!')
     }
 
 }

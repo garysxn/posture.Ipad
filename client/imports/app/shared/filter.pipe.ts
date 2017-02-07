@@ -3,7 +3,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'age' })
 export class AgePipe implements PipeTransform {
-  transform(birthDate:date): Number {
+  transform(birthDate): Number {
       birthDate = new Date(birthDate);
       var today = new Date();
       var age = today.getFullYear() - birthDate.getFullYear();
@@ -29,7 +29,7 @@ export class CapitalizePipe implements PipeTransform {
 
 @Pipe({name: 'gender'})
 export class GenderPipe implements PipeTransform {
-  transform(value: string): any {
+  transform(value: number): any {
       //console.log(value,'gender');
     if (value == 1)
         return 'Male';
@@ -40,7 +40,7 @@ export class GenderPipe implements PipeTransform {
 
 @Pipe({name: 'genderImg'})
 export class GenderImgPipe implements PipeTransform {
-  transform(value: string): any {
+  transform(value: number): any {
       //console.log(value,'gender');
     if (value == 1)
         return 'no-image-male.jpg';
