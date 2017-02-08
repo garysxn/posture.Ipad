@@ -27,7 +27,7 @@ check
 email
 jalik:ufs
 jalik:ufs-local
-#jalik:ufs-gridfs
+jalik:ufs-gridfs
 mys:accounts-phone
 mys:fonts
 themeteorchef:bert

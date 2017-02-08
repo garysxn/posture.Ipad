@@ -2,6 +2,7 @@ import {Meteor} from "meteor/meteor";
 import { Accounts } from 'meteor/accounts-base';
 import { Patients, Appointments } from "../../both/collections/csvs.collection";
 import * as moment from 'moment';
+import * as _ from 'underscore';
 //import {check} from "meteor/check";
 //import {Email} from "meteor/email";
 //import {isValidEmail, isValidName, isValidPhone} from "../../both/validators";
@@ -9,21 +10,23 @@ import * as moment from 'moment';
 Meteor.methods({
     
     /*Patient list*/
-    "patientList": (practitionerId, skip, limit, searchKey) => {
+    "patientList": (practitionerId, skip, limit, searchKey, fields=null) => {
         //console.log(practitionerId, skip, limit,searchKey);
+        let options = {skip: skip, limit: limit};
+        if (! _.isEmpty(fields)) {
+            options["fields"] = fields;
+        }
         var patientData = Patients.collection.find({practitioner:practitionerId,
                                                    $or: [{firstName:{ $regex : searchKey, $options:"i" }},
                                                         {lastName:{ $regex : searchKey, $options:"i" }},
                                                         {phonenumber:{ $regex : searchKey, $options:"i" }}]
-                                                   },
-                                                   {skip: skip, limit: limit}).fetch();
+                                                   }, options).fetch();
         //console.log(patientData,'patientData');
         if (patientData) {
             return patientData;
         }else{
             throw new Meteor.Error(403, "Patient not found.");
         }
-        
     },
     
     /*create patients*/
@@ -98,6 +101,13 @@ Meteor.methods({
         }
     },
 
+    /*add picture to patient */
+    "patients.addPicture": function(patientId, imageId) {
+        let patient = Meteor.call("patientData", patientId);
+        let images = patient.images || [];
+        images.push(imageId);
+        return Patients.collection.update({_id: patientId}, {$set: {images: images} });
+    }
 });
 
 

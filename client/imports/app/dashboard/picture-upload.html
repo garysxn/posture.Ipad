@@ -1,0 +1,40 @@
+<ion-header class="profile_main_head">
+	<ion-navbar>
+		<button ion-button icon-only menuToggle>
+			<ion-icon name="menu"></ion-icon> 
+		</button>
+		<div class="top_title"> Upload Picture </div>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="content1">
+    <!--<ion-item>
+        <ion-label fixed>Name</ion-label>
+        <ion-input type="text" value="" placeholder="Enter Name"></ion-input>
+    </ion-item>-->
+
+    <ion-item>
+        <span class="item item-input">
+            <input type="file" (change)="onFileSelect($event)" accept="image/*">
+        </span>
+    </ion-item>
+
+    <div *ngIf="isUploaded">
+        <p style="margin: 15px; color: #333;">
+            Picture has been saved. Please select patient to finish uploading.
+        </p>
+        <img src="{{image.url}}" style="margin: 10px; max-height: 250px;" />
+        <ion-list radio-group [(ngModel)]="patientId">
+            <ion-list-header>
+                Select Patient
+            </ion-list-header>
+
+            <ion-item *ngFor="let patient of patients">
+                <ion-label>{{patient.firstName}} {{patient.lastName}}</ion-label>
+                <ion-radio checked="false" value="{{patient._id}}"></ion-radio>
+            </ion-item>
+        </ion-list>
+
+        <button ion-button (click)="savePicture()">Finish</button>
+    </div>
+</ion-content>
