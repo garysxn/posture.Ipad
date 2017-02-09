@@ -21,6 +21,8 @@ export class PostureComponent extends MeteorComponent implements OnInit {
     dotFlag: boolean;
     scale: string;
     canvas: object;
+    context: object;
+    zoomCanvas: string;
     
     constructor() {
         super();
@@ -29,32 +31,50 @@ export class PostureComponent extends MeteorComponent implements OnInit {
         this.undoFlag = true;
         this.dotFlag = false;
         this.scale = 1.0;
+        this.zoomCanvas = '';
         
     }
 
     ngOnInit() {
-        this.canvas = document.getElementById('postureCanvas');;
-        var translatePos = {
-            x: 0,
-            y: 0
-        };
-     
-        //var scale = 1.0;
-        var scaleMultiplier = 0.8;
-        var startDragOffset = {};
-        var mouseDown = false;
-    
+        this.canvas = document.getElementById('postureCanvas');
+        this.context = this.canvas.getContext('2d');
+        
         /* draw canvas */
-        this.draw(this.scale, translatePos);
-        
-        /* push first frame into array */
-        //this.firstFrame = canvas.toDataURL('image/png');
-        //this.restorePoints.push(this.firstFrame);
-        
+        this.draw();
         
     }
     
-    /* enable dots funtionality*/
+    /* draw canvas */
+    draw(){
+        
+        let context = this.context;
+        let thisCanvas = this.canvas;
+        thisCanvas.width  = 600;
+        thisCanvas.height = 500;
+        
+        /* draw image*/
+        base_image = new Image();
+        base_image.src = 'images/80567430_o1.jpg';
+        base_image.onload = function(){
+            context.drawImage(base_image, 0, 0);
+          
+            /* base line */
+            context.beginPath();
+            context.moveTo(thisCanvas.width/2, 0);
+            context.lineTo(thisCanvas.width/2, thisCanvas.height);
+            context.lineWidth = 1.5;        
+            context.strokeStyle = '#90EE90';
+            context.stroke();        
+        }
+        
+         /* push first frame into array */
+        this.firstFrame = this.canvas.toDataURL('image/png');
+        this.restorePoints.push(this.firstFrame);
+        this.zoomCanvas = this.firstFrame;
+        
+    }
+    
+    /* enable dots funtionality */
     enableDots(){
         this.dotFlag = true;
     }
@@ -62,12 +82,11 @@ export class PostureComponent extends MeteorComponent implements OnInit {
     /* draw dots on image */
     drawDots(e) {
         if (this.dotFlag) {           
-            var context = this.canvas.getContext('2d');
-            //console.log(e,'event');
+            let context = this.context;
             let pos = this.getMousePos(this.canvas, e);
             let posx = pos.x;
             let posy = pos.y;
-            //console.log(posx,posy);
+            console.log(posx,posy);
             context.fillStyle = "#FF0000";
             context.beginPath();
             context.arc(posx, posy, 2, 0, 2*Math.PI);
@@ -75,6 +94,7 @@ export class PostureComponent extends MeteorComponent implements OnInit {
                     
             this.imgSrc = this.canvas.toDataURL('image/png');
             this.restorePoints.push(this.imgSrc);
+            this.zoomCanvas = this.imgSrc;
             //console.log(this.restorePoints.length,'restorePoints');
         }                
     }
@@ -82,7 +102,7 @@ export class PostureComponent extends MeteorComponent implements OnInit {
     /* posture grid draw */
     drawPostureGrid(){
         this.drawGrid = false;
-        var gridOptions = {
+        let gridOptions = {
             majorLines: {
                 separation: 20,
                 color: '#a1a1a1'
@@ -92,6 +112,7 @@ export class PostureComponent extends MeteorComponent implements OnInit {
                 
         this.imgSrc = this.canvas.toDataURL('image/png');
         this.restorePoints.push(this.imgSrc);
+        this.zoomCanvas = this.imgSrc;
     }
     
     /* clear all draw events */
@@ -109,12 +130,12 @@ export class PostureComponent extends MeteorComponent implements OnInit {
             let firstPop = this.restorePoints.pop();
         }
         
-        var canvasContext = this.canvas.getContext('2d');
+        let context = this.context;
         var oImg = new Image();        
         oImg.src = this.restorePoints.pop();
         
-        canvasContext.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        canvasContext.drawImage(oImg, 0, 0);
+        context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        context.drawImage(oImg, 0, 0);
         
         this.undoFlag = false;
         
@@ -129,56 +150,65 @@ export class PostureComponent extends MeteorComponent implements OnInit {
     }
     
     /* zoom functionality */
-    zoomGrid(){
+    zoomIn(){
         console.log('zoom in');
-        var scaleMultiplier = 0.8;
+        var scaleMultiplier = 1;
         var translatePos = {
             x: 0,
             y: 0
         };
+        console.log(this.scale,' / ', scaleMultiplier);
         
-        this.scale /= scaleMultiplier;
-        this.draw(this.scale, translatePos);        
+        this.scale = this.scale + scaleMultiplier;
+        //if (this.scale>1) {
+            this.scalePosture(this.scale, translatePos);
+        //}
     }
     
     zoomOut(){
         console.log('zoom out');
-        var scaleMultiplier = 0.8;
-         var translatePos = {
+        var scaleMultiplier = 1;
+        var translatePos = {
             x: 0,
             y: 0
         };
-        this.scale *= scaleMultiplier;
-        this.draw(this.scale, translatePos);
+        console.log(this.scale,' / ', scaleMultiplier);
+                
+        this.scale = this.scale - scaleMultiplier;
+        //if (this.scale>0) {
+            this.scalePosture(this.scale, translatePos);
+        //}
+        
     }
     
-    /* draw canvas */
-    draw(scale, translatePos){
-        var canvasContext = this.canvas.getContext('2d');
+    
+    
+    /* scale canvas */
+    scalePosture(scale, translatePos){
+        console.log(scale,'scalePosture');
+        
+        let context = this.context;
         let thisCanvas = this.canvas;
-        thisCanvas.width  = 600;
-        thisCanvas.height = 500;
+         // clear canvas
+        context.clearRect(0, 0, thisCanvas.width, thisCanvas.height);
         
-        canvasContext.clearRect(0, 0, thisCanvas.width, thisCanvas.height);
-     
-        canvasContext.save();
-        canvasContext.translate(translatePos.x, translatePos.y);
-        canvasContext.scale(scale, scale);
+        context.save();
+        context.translate(translatePos.x, translatePos.y);
+        context.scale(scale, scale);
+        //console.log(this.zoomCanvas,'this.zoomCanvas');
         
-        /* draw image*/
         base_image = new Image();
-        base_image.src = 'images/80567430_o1.jpg';
-        base_image.onload = function(){
-            canvasContext.drawImage(base_image, 0, 0);
-          
-            /* base line */
-            canvasContext.beginPath();
-            canvasContext.moveTo(thisCanvas.width/2, 0);
-            canvasContext.lineTo(thisCanvas.width/2, thisCanvas.height);
-            canvasContext.lineWidth = 1.5;        
-            canvasContext.strokeStyle = '#90EE90';
-            canvasContext.stroke();        
-        }        
+        base_image.src = this.zoomCanvas;
+        context.drawImage(base_image, 0, 0);
+        //base_image.onload = function(){
+        //    console.log('before',base_image);
+        //    context.drawImage(base_image, 0, 0);
+        //    this.zoomCanvas = thisCanvas.toDataURL('image/png');
+        //    console.log('after');
+        //}        
+        this.zoomCanvas = thisCanvas.toDataURL('image/png');
+        //context.restore();
+        
     }
     
     /* draw grid lines */
@@ -186,14 +216,13 @@ export class PostureComponent extends MeteorComponent implements OnInit {
     
         var iWidth = cnv.width;
         var iHeight = cnv.height;
-    
-        var ctx = cnv.getContext('2d');
-    
-        ctx.strokeStyle = lineOptions.color;
-        //ctx.strokeWidth = 2;
-        ctx.lineWidth = .05;
         
-        ctx.beginPath();
+        let context = this.context;
+    
+        context.strokeStyle = lineOptions.color;
+        context.lineWidth = .05;
+        
+        context.beginPath();
     
         var iCount = null;
         var i = null;
@@ -204,20 +233,20 @@ export class PostureComponent extends MeteorComponent implements OnInit {
     
         for (i = 1; i <= iCount; i++) {
             x = (i * lineOptions.separation);
-            ctx.moveTo(x, 0);
-            ctx.lineTo(x, iHeight);
-            ctx.stroke();
+            context.moveTo(x, 0);
+            context.lineTo(x, iHeight);
+            context.stroke();
         }
     
         iCount = Math.floor(iHeight / lineOptions.separation);
     
         for (i = 1; i <= iCount; i++) {
             y = (i * lineOptions.separation);
-            ctx.moveTo(0, y);
-            ctx.lineTo(iWidth, y);
-            ctx.stroke();
+            context.moveTo(0, y);
+            context.lineTo(iWidth, y);
+            context.stroke();
         }
-        ctx.closePath();
+        context.closePath();
     
         return;
     }
