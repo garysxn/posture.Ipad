@@ -10,17 +10,66 @@
 </ion-header>
 
 <ion-content class="content1">
-    <div class="main_pro_content">
-		<div class="m-signature-pad--body" style="border: 1px solid red; width: 100%; height: 80%;">
-		  <canvas id="postureCanvas" style="background-image:url('images/man.jpg')"
+	<div class="content2">
+		<ion-grid>
+			<ion-row>
+				<ion-col width-20 >
+					<ion-row>
+						<ion-col>
+							<button class="button" (click)="drawPostureGrid()" *ngIf="drawGrid">Grid</button>
+						</ion-col>
+					</ion-row>
+					
+					<ion-row>
+						<ion-col>
+						<button class="button" (click)="enableDots()">Dots</button>
+						</ion-col>
+					</ion-row>
+					
+					<ion-row>
+						<ion-col>
+							<button class="button" (click)="zoomIn()">Zoom In</button>
+							<button class="button" (click)="zoomOut()">Zoom Out</button>
+						</ion-col>
+					</ion-row>
+					
+					<ion-row>
+						<ion-col>
+							<button class="button" (click)="removePostureGrid()">Clear</button>
+						</ion-col>
+					</ion-row>
+					
+					<ion-row>
+						<ion-col>
+						<button class="button" (click)="drawUndo()" *ngIf="restorePoints && restorePoints.length>0">Undo</button>
+						</ion-col>
+					</ion-row>
+					
+					<!--<ion-icon ios="ios-grid" md="md-grid" (click)="drawPostureGrid()" *ngIf="drawGrid"></ion-icon>-->
+				</ion-col>
+			  
+			  <ion-col width-80 >
+				<canvas id="postureCanvas" 
 				  (click)="drawDots($event)"
-				  width="480" height="450"
+				  width="auto" height="auto"
+				  ></canvas>
+			  </ion-col>
+			</ion-row>
+		</ion-grid>
+	</div>
+	
+    <!--<div class="main_pro_content">
+		<div class="m-signature-pad--body" style="border: 1px solid red; width: auto; height: auto;">
+		  <canvas id="postureCanvas" 
+				  (click)="drawDots($event)"
+				  width="auto" height="auto"
 				  ></canvas>
 		</div>
 		<div class="m-signature-pad--footer">
+			<button class="button" data-action="clear" (click)="zoomGrid()">Zoom</button>
 			<button class="button" data-action="clear" (click)="removePostureGrid()">Clear</button>
 			<button class="button" data-action="save" (click)="drawPostureGrid()" *ngIf="drawGrid">drawGrid</button>
 			<button class="button" data-action="save" (click)="drawUndo()" *ngIf="restorePoints && restorePoints.length>0">Undo</button>
 		</div>
-    </div>
+    </div>-->
 </ion-content>
