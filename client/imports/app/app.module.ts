@@ -17,6 +17,7 @@ import { SHARED_DECLARATIONS } from './shared';
 import { AUTH_DECLARATIONS } from "./auth/index";
 import { LAYOUT_DECLARATIONS } from "./layout/index";
 import { INDEX_DECLARATIONS } from "./index";
+import { DASHBOARD_DECLARATIONS } from "./dashboard/index";
 
 import { ProviderService } from "../services/provider.service";
 
@@ -44,7 +45,8 @@ moduleDefinition = {
     ...AUTH_DECLARATIONS,
     ...INDEX_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
-    ...MOBILE_DECLARATIONS
+    ...MOBILE_DECLARATIONS,
+    ...DASHBOARD_DECLARATIONS
   ],
   providers: [
     LocalStorageService,
@@ -57,7 +59,8 @@ moduleDefinition = {
     ...AUTH_DECLARATIONS,
     ...MOBILE_DECLARATIONS,
     ...INDEX_DECLARATIONS,
-    ...LAYOUT_DECLARATIONS
+    ...LAYOUT_DECLARATIONS,
+    ...DASHBOARD_DECLARATIONS
   ],
   bootstrap: [
     IonicApp

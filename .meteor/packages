@@ -25,11 +25,12 @@ accounts-password
 tmeasday:publish-counts
 check
 email
-#jalik:ufs
-#jalik:ufs-local
+jalik:ufs
+jalik:ufs-local
 #jalik:ufs-gridfs
 mys:accounts-phone
 mys:fonts
 themeteorchef:bert
 alanning:roles
 #momentjs:moment
+meteorhacks:aggregate
