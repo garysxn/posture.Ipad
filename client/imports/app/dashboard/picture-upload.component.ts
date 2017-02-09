@@ -17,11 +17,12 @@ import template from "./picture-upload.html";
 export class PictureUploadComponent extends MeteorComponent implements OnInit {
     isUploading: boolean = false;
     isUploaded: boolean = false;
-    patients: Patient[] = null;
+    _patients: Patient[] = null;
     practitionerId: string;
     patientId: string;
     imageId: string;
     image: Image;
+    searchString: string;
  
     constructor(private navCtrl: NavController, private navParams: NavParams) {
         super();
@@ -42,7 +43,7 @@ export class PictureUploadComponent extends MeteorComponent implements OnInit {
         let skip = 0;
         let limit = 0;
         let searchText = "";
-        this.call("patientList",this.practitionerId, skip, limit, searchText, {firstName: 1, lastName: 1}, (err, data) => {
+        this.call("patients.findAll",this.practitionerId, skip, limit, searchText, {firstName: 1, lastName: 1}, (err, data) => {
             if (err) {                    
                 console.log("Error while fetching patients list.");
                 return;
@@ -50,6 +51,30 @@ export class PictureUploadComponent extends MeteorComponent implements OnInit {
             this.patients = data;
             console.log("patients:", this.patients);
         });
+    }
+
+    get patients() {
+        let val = this.searchString;
+        let items = this._patients;
+        
+        // if the value is an empty string don't filter the items
+        if (val && val.trim() != '') {
+            items = items.filter((item) => {
+                return (item.fullName.toLowerCase().indexOf(val.toLowerCase()) > -1);
+            })
+        }
+        return items;
+    }
+
+    set patients(items: Patient[]) {
+        this._patients = items;
+    }
+
+    filter(event: any) {
+        // set val to the value of the searchbar
+        let val = event.target.value;
+
+        this.searchString = val;
     }
 
     private startUpload(file: File): void {

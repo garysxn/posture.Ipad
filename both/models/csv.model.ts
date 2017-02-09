@@ -3,6 +3,7 @@ import { CollectionObject } from './collection-object.model';
 export interface Patient extends CollectionObject {
     firstName: string;
     lastName: string;
+    fullName: string;
     dob: Date;
     email: string;
     gender: string;

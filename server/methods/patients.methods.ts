@@ -101,6 +101,11 @@ Meteor.methods({
         }
     },
 
+    /*fetch patients full list with minimum fields */
+    "patients.findAll": function() {
+        return Patients.collection.aggregate({$project:{fullName:{$concat:["$firstName", " ", "$lastName"]}}},)
+    },
+
     /*add picture to patient */
     "patients.addPicture": function(patientId, imageId) {
         let patient = Meteor.call("patientData", patientId);

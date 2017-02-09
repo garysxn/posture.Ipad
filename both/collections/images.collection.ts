@@ -40,9 +40,9 @@ export const ImagesStore = new UploadFS.store.Local({
   filter: new UploadFS.Filter({
     contentTypes: ['image/*']
   }),
-  copyTo: [
+  /*copyTo: [
     ThumbsStore
-  ],
+  ],*/
   permissions: new UploadFS.StorePermissions({
     insert: loggedIn,
     update: loggedIn,
