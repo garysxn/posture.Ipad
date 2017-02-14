@@ -5,7 +5,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { upload } from '../../../../both/methods/images.methods';
 import { Patient } from "../../../../both/models/csv.model";
 import { Image } from "../../../../both/models/image.model";
-import { DashboardComponent } from "./dashboard.component";
+import { PatientListComponent } from "./details.component";
 import { showAlert } from "../shared/show-alert";
 
 import template from "./picture-upload.html";
@@ -36,45 +36,7 @@ export class PictureUploadComponent extends MeteorComponent implements OnInit {
 
     ngOnInit() {
         this.practitionerId = Meteor.userId();
-        this.fetchPatients();
-    }
-
-    private fetchPatients() {
-        let skip = 0;
-        let limit = 0;
-        let searchText = "";
-        this.call("patients.findAll",this.practitionerId, skip, limit, searchText, {firstName: 1, lastName: 1}, (err, data) => {
-            if (err) {                    
-                console.log("Error while fetching patients list.");
-                return;
-            }
-            this.patients = data;
-            console.log("patients:", this.patients);
-        });
-    }
-
-    get patients() {
-        let val = this.searchString;
-        let items = this._patients;
-        
-        // if the value is an empty string don't filter the items
-        if (val && val.trim() != '') {
-            items = items.filter((item) => {
-                return (item.fullName.toLowerCase().indexOf(val.toLowerCase()) > -1);
-            })
-        }
-        return items;
-    }
-
-    set patients(items: Patient[]) {
-        this._patients = items;
-    }
-
-    filter(event: any) {
-        // set val to the value of the searchbar
-        let val = event.target.value;
-
-        this.searchString = val;
+        this.patientId = this.navParams.get('patientId');
     }
 
     private startUpload(file: File): void {
@@ -97,6 +59,7 @@ export class PictureUploadComponent extends MeteorComponent implements OnInit {
             this.imageId = res._id;
             console.log("file upload done.")
             console.log("file id:", res._id);
+            this.savePicture();
         })
         .catch((error) => {
             this.isUploading = false;
@@ -116,7 +79,7 @@ export class PictureUploadComponent extends MeteorComponent implements OnInit {
             }
             console.log("Picture added to patient successfully.");
             showAlert("Picture has been saved successfully.", "success");
-            this.navCtrl.setRoot(DashboardComponent);
+            this.navCtrl.setRoot(PatientListComponent);
         });
     }
 }

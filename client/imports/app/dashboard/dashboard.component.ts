@@ -7,7 +7,6 @@ import { LandingComponent } from "../layout/landing.component";
 import { PatientListComponent } from "../patient/details.component";
 import { PostureComponent } from "../analysis/posture.component";
 import { PractitionerDetailsComponent } from "../practitioner/details.component";
-import { PictureUploadComponent } from "./picture-upload.component";
 
 import template from "./dashboard.html";
 
@@ -21,7 +20,6 @@ export class DashboardComponent implements OnInit {
     profile = PractitionerDetailsComponent;
     analysis = PostureComponent;
     patientDetails = PatientListComponent;
-    picUpload = PictureUploadComponent;
 
     constructor(private navCtrl: NavController, private navParams: NavParams, private providerService: ProviderService) {
         //$('.collapsible').collapsible();

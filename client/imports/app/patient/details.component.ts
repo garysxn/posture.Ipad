@@ -9,6 +9,7 @@ import { showAlert } from "../shared/show-alert";
 import { PatientAddComponent } from "../patient/addpatient.component";
 import { PatientDetailsComponent } from "../patient/view.component";
 import { AppointmentComponent } from "../patient/addappointment.component";
+import { PictureUploadComponent } from "./picture-upload.component";
 import template from './details.component.html';
 
 @Component({
@@ -66,6 +67,13 @@ export class PatientListComponent extends MeteorComponent implements OnInit {
     /* redirect to patient details page */
     viewPatient(patientId){
         this.navCtrl.push(PatientDetailsComponent, {
+            patientId: patientId,
+        });
+    }
+
+    /* upload picture for patient */
+    uploadPicture(patientId) {
+        this.navCtrl.push(PictureUploadComponent, {
             patientId: patientId,
         });
     }

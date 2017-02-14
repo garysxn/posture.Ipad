@@ -18,6 +18,7 @@ import { AUTH_DECLARATIONS } from "./auth/index";
 import { LAYOUT_DECLARATIONS } from "./layout/index";
 import { INDEX_DECLARATIONS } from "./index";
 import { DASHBOARD_DECLARATIONS } from "./dashboard/index";
+import { PATIENT_DECLARATIONS } from "./patient/index";
 
 import { ProviderService } from "../services/provider.service";
 
@@ -46,7 +47,8 @@ moduleDefinition = {
     ...INDEX_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
     ...MOBILE_DECLARATIONS,
-    ...DASHBOARD_DECLARATIONS
+    ...DASHBOARD_DECLARATIONS,
+    ...PATIENT_DECLARATIONS
   ],
   providers: [
     LocalStorageService,
@@ -60,7 +62,8 @@ moduleDefinition = {
     ...MOBILE_DECLARATIONS,
     ...INDEX_DECLARATIONS,
     ...LAYOUT_DECLARATIONS,
-    ...DASHBOARD_DECLARATIONS
+    ...DASHBOARD_DECLARATIONS,
+    ...PATIENT_DECLARATIONS
   ],
   bootstrap: [
     IonicApp
