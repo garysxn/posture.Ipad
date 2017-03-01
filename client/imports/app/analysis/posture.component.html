@@ -16,16 +16,23 @@
 				<ion-col width-20 >
 					<ion-row>
 						<ion-col>
-							<button class="button" (click)="drawPostureGrid()" *ngIf="drawGrid">Grid</button>
+								<canvas id="postureCanvas"  width="500" height="500" style="border:4px solid black; margin-left:240px; margin-top:-14px"></canvas><br>
+							<button class="button" (click)="drawPostureGrid()" >Draw Grid</button>	
 						</ion-col>
 					</ion-row>
 					
-					<ion-row>
+          <ion-row>
 						<ion-col>
-						<button class="button" (click)="enableDots()">Dots</button>
+							<button id="button" (click)="dotcontrol()">Draw dots</button><br>	
 						</ion-col>
 					</ion-row>
-					
+
+          <ion-row>
+						<ion-col>
+							<button id="button" (click)="drawlines()">Draw line</button><br>	
+						</ion-col>
+					</ion-row>
+
 					<ion-row>
 						<ion-col>
 							<button class="button" (click)="zoomIn()">Zoom In</button>
@@ -33,28 +40,23 @@
 						</ion-col>
 					</ion-row>
 					
-					<ion-row>
-						<ion-col>
-							<button class="button" (click)="removePostureGrid()">Clear</button>
-						</ion-col>
-					</ion-row>
+					
 					
 					<ion-row>
 						<ion-col>
 						<button class="button" (click)="drawUndo()" *ngIf="restorePoints && restorePoints.length>0">Undo</button>
 						</ion-col>
 					</ion-row>
+
+
+					<ion-row>
+						<ion-col>
+							<button class="button" (click)="removePostureGrid()">Clear</button>
+						</ion-col>
+					</ion-row>
 					
 					<!--<ion-icon ios="ios-grid" md="md-grid" (click)="drawPostureGrid()" *ngIf="drawGrid"></ion-icon>-->
 				</ion-col>
-			  
-			  <ion-col width-80 >
-				<canvas id="postureCanvas" 
-				  (click)="drawDots($event)"
-				  width="auto" height="auto"
-				  ></canvas>
-			  </ion-col>
-			</ion-row>
 		</ion-grid>
 	</div>
 	

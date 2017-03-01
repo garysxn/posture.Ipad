@@ -28,6 +28,7 @@
     "angular2-meteor-tests-polyfills": "0.0.2",
     "bcrypt": "0.8.7",
     "csv-parser": "1.11.0",
+    "fabric": "^1.7.6",
     "fibers": "1.0.15",
     "fs-extra": "1.0.0",
     "gm": "1.23.0",
